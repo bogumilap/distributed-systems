@@ -19,7 +19,7 @@ public class TCPServerListener extends ServerListener {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             int senderID = clientSocket.getPort();
-            while (true) {
+            while (server.isRunning()) {
                 String message = in.readLine();
                 if (message != null) {
                     System.out.println("server received TCP msg: " + message + " from client #" + senderID);
@@ -28,6 +28,14 @@ public class TCPServerListener extends ServerListener {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (server.getTcpServerSocket() != null) {
+                try {
+                    server.getTcpServerSocket().close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

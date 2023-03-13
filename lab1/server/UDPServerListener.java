@@ -14,19 +14,24 @@ public class UDPServerListener extends ServerListener {
     @Override
     public void run() {
         byte[] receiveBuffer = new byte[1024];
-        while (true) {
-            Arrays.fill(receiveBuffer, (byte) 0);
-            DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
-            try {
-                if (! server.getTcpServerSocket().isClosed()) {
+        try {
+            while (server.isRunning()) {
+                Arrays.fill(receiveBuffer, (byte) 0);
+                DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+
+                if (!server.getUdpServerSocket().isClosed()) {
                     server.getUdpServerSocket().receive(receivePacket);
                     String message = new String(receivePacket.getData());
                     int senderID = Integer.parseInt(message.substring(0, 5));
                     System.out.println("server received UDP msg: " + message + " from client #" + senderID);
                     passMessage(senderID, message);
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (server.getUdpServerSocket() != null) {
+                server.getUdpServerSocket().close();
             }
         }
     }

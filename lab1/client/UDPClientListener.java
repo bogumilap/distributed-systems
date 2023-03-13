@@ -16,7 +16,7 @@ public class UDPClientListener extends ClientListener {
         try {
             udpResponseSocket = new DatagramSocket(client.getID());
             byte[] receiveBuffer = new byte[1024];
-            while (true) {
+            while (client.isRunning()) {
                 Arrays.fill(receiveBuffer, (byte)0);
                 DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
                 udpResponseSocket.receive(receivePacket);
@@ -28,6 +28,9 @@ public class UDPClientListener extends ClientListener {
         } finally {
             if (udpResponseSocket != null) {
                 udpResponseSocket.close();
+            }
+            if (client.getUdpSocket() != null) {
+                client.getUdpSocket().close();
             }
         }
     }

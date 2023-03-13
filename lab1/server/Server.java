@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Server extends Thread {
     private final List<Socket> connectedClients = new ArrayList<>();
     private final ServerSocket tcpServerSocket;
     private final DatagramSocket udpServerSocket;
+    private final AtomicBoolean running = new AtomicBoolean(true);
 
     public Server() throws IOException {
         int portNumber = 12345;
@@ -18,31 +20,10 @@ public class Server extends Thread {
     }
 
     public void run() {
-        try {
-            (new UDPServerListener(this)).start();
-            while (true) {
-                Socket clientSocket = null;
-                try {
-                    clientSocket = tcpServerSocket.accept();
-                    addClient(clientSocket);
-                    System.out.println("client #" + clientSocket.getPort() + " connected to server");
-                    (new TCPServerListener(clientSocket, this)).start();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        } finally {
-            if (tcpServerSocket != null){
-                try {
-                    tcpServerSocket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (udpServerSocket != null) {
-                udpServerSocket.close();
-            }
-        }
+        (new UDPServerListener(this)).start();
+        (new TCPServerConnectionListener(this)).start();
+        while (isRunning()) { }
+        System.out.println("Server closed.");
     }
 
     public DatagramSocket getUdpServerSocket() {
@@ -59,5 +40,13 @@ public class Server extends Thread {
 
     public List<Socket> getConnectedClients() {
         return connectedClients;
+    }
+
+    public boolean isRunning() {
+        return running.get();
+    }
+
+    public void setRunning(boolean running) {
+        this.running.set(running);
     }
 }

@@ -10,12 +10,20 @@ public class TCPClientListener extends ClientListener {
     @Override
     public void run() {
         try {
-            while (true) {
+            while (client.isRunning()) {
                 String message = client.getTcpIn().readLine();
                 displayMessage(message);
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (client.getTcpSocket() != null) {
+                try {
+                    client.getTcpSocket().close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

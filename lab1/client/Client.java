@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class Client extends Thread {
@@ -15,6 +16,7 @@ public class Client extends Thread {
     private final PrintWriter tcpOut;
     private final BufferedReader tcpIn;
     private final DatagramSocket udpSocket;
+    private AtomicBoolean running = new AtomicBoolean(true);
 
     public Client() throws IOException {
         // create socket
@@ -31,20 +33,10 @@ public class Client extends Thread {
         try {
             (new TCPClientListener(this)).start();
             (new UDPClientListener(this)).start();
-            while (true) { }
+            while (isRunning()) { }
+            System.out.println("Client #" + getID() + " closed.");
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (tcpSocket != null) {
-                try {
-                    tcpSocket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (udpSocket != null) {
-                udpSocket.close();
-            }
         }
     }
 
@@ -68,5 +60,21 @@ public class Client extends Thread {
 
     public BufferedReader getTcpIn() {
         return tcpIn;
+    }
+
+    public Socket getTcpSocket() {
+        return tcpSocket;
+    }
+
+    public DatagramSocket getUdpSocket() {
+        return udpSocket;
+    }
+
+    public boolean isRunning() {
+        return running.get();
+    }
+
+    public void setRunning(boolean running) {
+        this.running.set(running);
     }
 }
