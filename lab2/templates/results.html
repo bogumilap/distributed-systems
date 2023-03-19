@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Results</title>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 5px 10px 5px 10px;
+            }
+
+            table {
+                margin: 20px 0 20px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="json">
+            {{result}}
+        </div>
+        <table id="table">
+            <tr>
+                <th>source</th>
+                <th>{{c1}} -> {{c2}}</th>
+                <th>{{c2}} -> {{c1}}</th>
+            </tr>
+        </table>
+        <div>
+            <a href="{{url1}}" target="_blank">URL1 API</a><br/>
+            <a href="{{url2}}" target="_blank">URL2 API</a>
+        </div>
+
+        <script>
+            let data = document.getElementById("json").innerHTML;
+            data = JSON.parse(data.replaceAll("'", '"'));
+            document.getElementById("json").innerHTML = JSON.stringify(data, null, 4);
+            let table = document.getElementById("table");
+            for (let key in data) {
+                let row = document.createElement("tr");
+                let first_cell = `${data[key][0]}` === "-1" ? "not found" : `${data[key][0]}`;
+                let second_cell = `${data[key][1]}` === "-1" ? "not found" : `${data[key][1]}`;
+                row.innerHTML = `<td>${key.replaceAll("_", " ")}</td><td>${first_cell}</td><td>${second_cell}</td>`;
+                table.appendChild(row);
+            }
+        </script>
+    </body>
+</html>

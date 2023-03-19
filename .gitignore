@@ -2,3 +2,7 @@
 .idea
 *.iml
 out*
+Lib
+Scripts
+pyvenv.cfg
+__pycache__

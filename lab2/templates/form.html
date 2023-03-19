@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Form</title>
+    </head>
+    <body>
+        <form method="GET" id="form" action='/submit'>
+            <label for="currency1">Enter first currency:</label><br/>
+            <input type="text" id="currency1" name="currency1" required>
+            <p></p>
+            <label for="currency2">Enter second currency:</label><br/>
+            <input type="text" id="currency2" name="currency2" required>
+            <p></p>
+            <label for="date">Enter date:</label><br/>
+            <input type="date" id="date" name="date" required>
+            <p></p>
+            <input class="submit" type="submit" value="Submit">
+        </form>
+
+        <script>
+            document.getElementById("date").valueAsDate = new Date();
+        </script>
+    </body>
+</html>
