@@ -41,9 +41,9 @@ async def login_form(request: Request, username: str = Form(...), password: str 
         return responses.RedirectResponse("/form", status_code=status.HTTP_303_SEE_OTHER)
     else:
         return templates.TemplateResponse("error_page.html", {"status_code": 401,
-                                                          "reason_phrase": "Unauthorized",
-                                                          "additional_note": "wrong credentials",
-                                                          "request": request})
+                                                              "reason_phrase": "Unauthorized",
+                                                              "additional_note": "wrong credentials",
+                                                              "request": request})
 
 
 @app.get("/form", response_class=HTMLResponse)
@@ -57,7 +57,8 @@ async def form(request: Request):
                                                               "request": request})
 
 
-async def request(client, url):
+async def request(client: AsyncClient, url: str) -> str:
+    """Collects data from given url."""
     response = await client.get(url)
     if response.is_error:
         return str({"status_code": response.status_code,
@@ -66,20 +67,10 @@ async def request(client, url):
     return response.text
 
 
-async def get_possible_currencies():
+async def get_possible_currencies() -> Tuple:
     async with httpx.AsyncClient() as client:
         task = request(client, CURRENCIES_URL)
         result = await asyncio.gather(task)
-        return result
-
-
-async def task(currency1, currency2, date):
-    async with httpx.AsyncClient() as client:
-        tasks = [request(client, f"{URL1}/{date}/currencies/{currency1}.json"),
-                 request(client, f"{URL1}/{date}/currencies/{currency2}.json"),
-                 request(client, f"{URL2}/convert?from={currency1}&to={currency2}&date={date}"),
-                 request(client, f"{URL2}/convert?from={currency2}&to={currency1}&date={date}")]
-        result = await asyncio.gather(*tasks)
         return result
 
 
@@ -94,6 +85,7 @@ def get_bad_request_error_dict(additional_note: str, fix: str, request: Request)
 
 
 def validate_date(date: str, request: Request) -> Dict:
+    """Validates date formatting and value."""
     match = re.search(r"^([0-9]){4}-", date)
     if not match:
         return get_bad_request_error_dict("unsupported date format",
@@ -108,6 +100,7 @@ def validate_date(date: str, request: Request) -> Dict:
 
 
 async def validate_currency(possible_currencies: Dict, currency: str, request: Request) -> Dict:
+    """Checks if currency exists."""
     if currency not in possible_currencies:
         return get_bad_request_error_dict(f"currency {currency} not found",
                                           "Try again with an existing currency.",
@@ -115,7 +108,19 @@ async def validate_currency(possible_currencies: Dict, currency: str, request: R
     return {}
 
 
-async def get_currencies_data(currency1: str, currency2: str, date: str, request: Request) -> List:
+async def task(currency1: str, currency2: str, date: str) -> Tuple:
+    """Generates queries and collects responses."""
+    async with httpx.AsyncClient() as client:
+        tasks = [request(client, f"{URL1}/{date}/currencies/{currency1}.json"),
+                 request(client, f"{URL1}/{date}/currencies/{currency2}.json"),
+                 request(client, f"{URL2}/convert?from={currency1}&to={currency2}&date={date}"),
+                 request(client, f"{URL2}/convert?from={currency2}&to={currency1}&date={date}")]
+        result = await asyncio.gather(*tasks)
+        return result
+
+
+async def get_currencies_data(currency1: str, currency2: str, date: str, request: Request) -> List[Dict]:
+    """Collects data from responses and parses it to dictionaries."""
     results = await task(currency1, currency2, date)
     currency_info = []
     error_dict = {}
@@ -134,11 +139,11 @@ async def get_currencies_data(currency1: str, currency2: str, date: str, request
     if error_dict:
         error_dict["request"] = request
         return [error_dict]
-
     return currency_info
 
 
-def parse_values_to_dict(values: List, currency1: str, currency2: str) -> Dict:
+def parse_values_to_dict(values: List[Dict], currency1: str, currency2: str) -> Dict:
+    """Extracts currencies' data and calculates mean value."""
     url1 = [float(values[0].get(currency1).get(currency2)) if currency1 in values[0] else -1,
             float(values[1].get(currency2).get(currency1)) if currency2 in values[1] else -1]
     url2 = [float(values[2].get("result")) if "result" in values[2] else -1,
@@ -150,6 +155,7 @@ def parse_values_to_dict(values: List, currency1: str, currency2: str) -> Dict:
 
 
 async def process_data(currency_info: list, currency1: str, currency2: str) -> Dict:
+    """Gathers currencies' data to final dictionary and calculates minimum and maximum."""
     result = parse_values_to_dict(currency_info[:4], currency1, currency2)
     result["mean_1_year_earlier"] = parse_values_to_dict(currency_info[4:8], currency1, currency2)["mean"]
     result["mean_10_years_earlier"] = parse_values_to_dict(currency_info[8:12], currency1, currency2)["mean"]
@@ -171,9 +177,12 @@ async def get_result(request: Request, currency1: str, currency2: str, date: str
                                                               "reason_phrase": "Unauthorized",
                                                               "additional_note": "log in first",
                                                               "request": request})
+
+    # check date
     if error_dict := validate_date(date, request):
         return templates.TemplateResponse("error_page.html", error_dict)
 
+    # check currencies
     currencies = await get_possible_currencies()
     currencies = json.loads(currencies[0])
     if currencies.get("status_code"):
@@ -185,6 +194,7 @@ async def get_result(request: Request, currency1: str, currency2: str, date: str
             or (error_dict := await validate_currency(currencies, currency2, request)):
         return templates.TemplateResponse("error_page.html", error_dict)
 
+    # current data
     currency_info = await get_currencies_data(currency1, currency2, date, request)
     if currency_info[0].get("status_code"):
         return templates.TemplateResponse("error_page.html", currency_info[0])
