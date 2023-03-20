@@ -31,7 +31,7 @@ async def root(request: Request):
     return templates.TemplateResponse("login_form.html", {"request": request})
 
 
-@app.post("/login/", response_class=RedirectResponse|HTMLResponse)
+@app.post("/login/")
 async def login_form(request: Request, username: str = Form(...), password: str = Form(...)):
     global logged_in
     with open("users.json") as users_file:
