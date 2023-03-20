@@ -4,33 +4,46 @@
         <meta charset="UTF-8">
         <title>Results</title>
         <style>
+            #container {
+                display: grid;
+                gap: 30px;
+                grid-template-columns: auto auto;
+                width: fit-content;
+                padding: 10px;
+            }
+
+            #json {
+                grid-row: 1/3;
+            }
+
+            #table {
+                grid-row: 1;
+            }
+
             table, th, td {
                 border: 1px solid black;
                 border-collapse: collapse;
                 padding: 5px 10px 5px 10px;
             }
-
-            table {
-                margin: 20px 0 20px 0;
-            }
         </style>
     </head>
     <body>
-        <div id="json">
-            {{result}}
+        <div id="container">
+            <textarea id="json" cols="30" rows="30">
+                {{result}}
+            </textarea>
+            <table id="table">
+                <tr>
+                    <th>SOURCE</th>
+                    <th>{{c1}} -> {{c2}}</th>
+                    <th>{{c2}} -> {{c1}}</th>
+                </tr>
+            </table>
+            <div id="links">
+                <a href="{{url1}}" target="_blank">URL1 API</a><br/>
+                <a href="{{url2}}" target="_blank">URL2 API</a>
+            </div>
         </div>
-        <table id="table">
-            <tr>
-                <th>source</th>
-                <th>{{c1}} -> {{c2}}</th>
-                <th>{{c2}} -> {{c1}}</th>
-            </tr>
-        </table>
-        <div>
-            <a href="{{url1}}" target="_blank">URL1 API</a><br/>
-            <a href="{{url2}}" target="_blank">URL2 API</a>
-        </div>
-
         <script>
             let data = document.getElementById("json").innerHTML;
             data = JSON.parse(data.replaceAll("'", '"'));
