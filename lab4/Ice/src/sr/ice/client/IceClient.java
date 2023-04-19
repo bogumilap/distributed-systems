@@ -3,6 +3,7 @@ package sr.ice.client;
 import Demo.A;
 import Demo.CalcPrx;
 import com.zeroc.Ice.*;
+import com.zeroc.IceInternal.Ex;
 
 import java.io.IOException;
 import java.lang.Exception;
@@ -25,10 +26,18 @@ public class IceClient {
 
 			// 2. Uzyskanie referencji obiektu - to samo co powyżej, ale mniej ładnie
 			ObjectPrx base1 = communicator.stringToProxy("calc/calc11:tcp -h 127.0.0.2 -p 10000 -z : udp -h 127.0.0.2 -p 10000 -z"); //opcja -z włącza możliwość kompresji wiadomości
+			ObjectPrx base2 = communicator.stringToProxy("calc/calc22:tcp -h 127.0.0.2 -p 10000 -z : udp -h 127.0.0.2 -p 10000 -z");
+			ObjectPrx base3 = communicator.stringToProxy("calc/calc33:tcp -h 127.0.0.2 -p 10000 -z : udp -h 127.0.0.2 -p 10000 -z");
 
 			// 3. Rzutowanie, zawężanie (do typu Calc)
 			CalcPrx obj1 = CalcPrx.checkedCast(base1);
 			if (obj1 == null) throw new Error("Invalid proxy");
+
+			CalcPrx obj2 = CalcPrx.checkedCast(base2);
+			if (obj2 == null) throw new Error("Invalid proxy");
+
+			CalcPrx obj3 = CalcPrx.checkedCast(base3);
+			if (obj3 == null) throw new Error("Invalid proxy");
 
 			CompletableFuture<Long> cfl = null;
 			String line = null;
@@ -51,7 +60,7 @@ public class IceClient {
 							System.out.println("RESULT = " + r);
 							break;
 						case "subtract":
-							r = obj1.subtract(7, 8);
+							r = obj3.subtract(7, 8);
 							System.out.println("RESULT = " + r);
 							break;
 						case "op":
@@ -83,6 +92,22 @@ public class IceClient {
 						case "compress off":
 							obj1.ice_compress(false);
 							System.out.println("Compression disabled");
+							break;
+						case "avg":
+							try {
+								float result = obj1.avg(new long[]{1, 2, 3, 4});
+								System.out.println("RESULT = " + result);
+							} catch (Exception e) {
+								System.out.println("An error occurred.");
+							}
+							break;
+						case "avg0":
+							try {
+								float result = obj1.avg(new long[]{});
+								System.out.println("RESULT = " + result);
+							} catch (Exception e) {
+								System.out.println("An error occurred.");
+							}
 							break;
 
 						/* PONIŻEJ WYWOŁANIA REALIZOWANE W TRYBIE ASYNCHRONICZNYM */

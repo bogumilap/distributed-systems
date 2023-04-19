@@ -31,6 +31,16 @@ public class IceServer {
 			adapter.add(calcServant1, new Identity("calc11", "calc"));
 			adapter.add(calcServant2, new Identity("calc22", "calc"));
 
+			// zadanie 10: Strategia: wiele obiektów, wspólny serwant. W kodzie serwera skojarz nowy obiekt o nazwie
+			// calc33 i kategorii calc z dotychczasowym serwantem
+//			adapter.add(calcServant1, new Identity("calc33", "calc"));
+
+			// zadanie 11: Strategia: wiele obiektów, każdy z dedykowanym serwantem. Stwórz nowy (dodatkowy) obiekt
+			// serwanta i skojarz z nim obiekt o nazwie calc33 i kategorii calc
+			CalcI calcServant3 = new CalcI();
+			adapter.add(calcServant3, new Identity("calc33", "calc"));
+
+
 			// 5. Aktywacja adaptera i wejście w pętlę przetwarzania żądań
 			adapter.activate();
 
