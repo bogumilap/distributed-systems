@@ -1,7 +1,7 @@
 import asyncio
 import json
 import re
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import httpx
 from fastapi import FastAPI, Request, responses, Form
@@ -57,7 +57,7 @@ async def form(request: Request):
                                                               "request": request})
 
 
-async def request(client: AsyncClient, url: str) -> str:
+async def request(client, url: str) -> str:
     """Collects data from given url."""
     response = await client.get(url)
     if response.is_error:
@@ -85,7 +85,9 @@ def get_bad_request_error_dict(additional_note: str, fix: str, request: Request)
 
 
 def validate_date(date: str, request: Request) -> Dict:
-    """Validates date formatting and value."""
+    """Validates date formatting and value.
+    :param date: string containing date
+    :return: dict with values"""
     match = re.search(r"^([0-9]){4}-", date)
     if not match:
         return get_bad_request_error_dict("unsupported date format",
