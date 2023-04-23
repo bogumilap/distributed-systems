@@ -114,10 +114,10 @@ def sum_array(arr1: np.array) -> int:
 # Read both arrays.
 # Use the func_name.remote(args) extention to invoke a remote Ray Task
 
-obj_ref_arr1 = read_array.remote(os.path.abspath("data/file_1.txt"))
+obj_ref_arr1 = read_array.remote(os.path.abspath("../data/file_1.txt"))
 print(f"array 1: {obj_ref_arr1}")
 
-obj_ref_arr2 = read_array.remote(os.path.abspath("data/file_2.txt"))
+obj_ref_arr2 = read_array.remote(os.path.abspath("../data/file_2.txt"))
 print(f"array 2: {obj_ref_arr2}")
 
 # Add both arrays
