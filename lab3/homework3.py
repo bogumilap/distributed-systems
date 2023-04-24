@@ -73,7 +73,6 @@ def exercise_3_1_and_3_2():
     worker_invoker = MethodStateCounter.remote()
     print(worker_invoker)
 
-
     # Invoke a random caller and fetch the value or invocations of a random caller
     print("method callers")
     for _ in range(5):
@@ -95,49 +94,43 @@ def exercise_3_1_and_3_2():
 @ray.remote
 class ProgressActor:
     def __init__(self, total_num_samples: int):
-        self.total_num_samples = total_num_samples
-        self.num_samples_completed_per_task = {}
+        self.total_samples_number: int = total_num_samples
+        self.task_completed_samples_number: dict[str, int] = {}
 
-    def report_progress(self, task_id: str, num_samples_completed: int) -> None:
-        self.num_samples_completed_per_task[task_id] = num_samples_completed
+    def report_progress(self, task_id: str, completed_samples_number: int):
+        self.task_completed_samples_number[task_id] = completed_samples_number
 
     def get_progress(self) -> float:
-        return (
-            sum(self.num_samples_completed_per_task.values()) / self.total_num_samples
-        )
+        return sum(self.task_completed_samples_number.values()) / self.total_samples_number
 
 
 @ray.remote
-def task(id: str, sample_count: int, actor: ObjectRef[ProgressActor]):
+def task(id: str, samples_number: int, actor: ObjectRef[ProgressActor]):
     in_count = 0
-    for i in range(sample_count):
-        x = random.random()
-        y = random.random()
-        if x*x + y*y <= 1:
+    for i in range(samples_number):
+        x, y = random.random(), random.random()
+        if x * x + y * y <= 1:
             in_count += 1
-        if (i + 1) % 1_000_000 == 0:
-            actor.report_progress.remote(id, i + 1)
-
-    actor.report_progress.remote(id, sample_count)
-    return Fraction(in_count, sample_count)
+        if i % 1000 == 0:
+            actor.report_progress.remote(id, i)
+    actor.report_progress.remote(id, samples_number)
+    return Fraction(in_count, samples_number)
 
 
 @ray_decorator
 def exercise_3_3():
-    tasks_number = 10
+    tasks_number = 5
     samples_number = 1000 * 1000
     actor = ProgressActor.remote(tasks_number * samples_number)
     results = [task.remote(f"task{i + 1}", samples_number, actor) for i in range(tasks_number)]
-
     while True:
         progress = ray.get(actor.get_progress.remote())
         print(f"Progress: {int(progress * 100)}%")
         if progress == 1:
             break
         time.sleep(1)
-
-    pi = float(sum(ray.get(results)) / tasks_number)
-    print(f"Estimated: {pi * 4}")
+    pi = 4 * float(sum(ray.get(results)) / tasks_number)
+    print(f"Estimated: {pi}")
 
 
 if __name__ == "__main__":

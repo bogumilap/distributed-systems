@@ -1,6 +1,5 @@
 import cProfile
 import time
-from copy import deepcopy
 from random import randint
 from sys import getsizeof
 
@@ -97,15 +96,16 @@ def prepare_dicts():
 
 
 @ray_decorator
-def prepare_and_process_task():
-    array_refs = prepare_arrays()
-    dict_refs = prepare_dicts()
-    # cProfile.run("time_out_function(refs)")
-    time_out_function(array_refs + dict_refs)
+def prepare_and_process_task(use_cProfile: bool):
+    refs = prepare_arrays() + prepare_dicts()
+    if use_cProfile:
+        cProfile.run("time_out_function(refs)")
+    else:
+        time_out_function(refs)
 
 
 if __name__ == "__main__":
-    prepare_and_process_task()
+    prepare_and_process_task(False)
 
 
 # (task pid=2848) Size of list: 51.256 KB

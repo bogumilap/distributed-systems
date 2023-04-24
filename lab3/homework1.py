@@ -42,12 +42,22 @@ def run_remote(array: list) -> list:
 
 if __name__ == "__main__":
     numbers_array = get_array()
+    use_cProfile = False
 
     print('local run')
-    local_results = run_local(deepcopy(numbers_array))
-    # cProfile.run("run_local(deepcopy(numbers_array))")
+    if use_cProfile:
+        cProfile.run("run_local(deepcopy(numbers_array))")
+    else:
+        local_results = run_local(deepcopy(numbers_array))
 
     print('remote run')
-    ray_results = run_remote(deepcopy(numbers_array))
-    # cProfile.run("run_remote(deepcopy(numbers_array))")
+    if use_cProfile:
+        cProfile.run("run_remote(deepcopy(numbers_array))")
+    else:
+        ray_results = run_remote(deepcopy(numbers_array))
+
+
+# results:
+# local run time: 0.8607645034790039
+# remote run time: 0.5891895294189453
 
