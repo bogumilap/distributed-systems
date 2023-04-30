@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d3919229-b961-4afa-a5fc-57287e2f9ddc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../gRPC/gen/sr/proto/AddressBookProtos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gRPC/gen/sr/proto/AddressBookProtos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gRPC/person2.ser" beforeDir="false" afterPath="$PROJECT_DIR$/../../gRPC/person2.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Zadanie A1/A1 - treść.md" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="2P7FtV3YvEFcEHyZZXZKlCtwi6K" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/bogum/Documents/distributed-systems/lab4-5/homework/Zadanie_A1&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\bogum\Documents\distributed-systems\lab4-5\homework\Zadanie_A1" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.IceServer">
+    <configuration name="IceClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="sr.ice.client.IceClient" />
+      <module name="Zadanie_A1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sr.ice.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IceServer" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="sr.ice.server.IceServer" />
+      <module name="Zadanie_A1" />
+      <option name="PROGRAM_PARAMETERS" value="--Ice.Config=config.server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sr.ice.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.IceClient" />
+      <item itemvalue="Application.IceServer" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.IceServer" />
+        <item itemvalue="Application.IceClient" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d3919229-b961-4afa-a5fc-57287e2f9ddc" name="Changes" comment="" />
+      <created>1682800429729</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1682800429729</updated>
+      <workItem from="1682800431226" duration="4780000" />
+      <workItem from="1682870080035" duration="13874000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

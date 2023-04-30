@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="bzip2-1.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/bzip2-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-compress-1.20.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/icegridgui.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

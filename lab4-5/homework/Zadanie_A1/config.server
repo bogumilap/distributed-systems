@@ -1,0 +1,8 @@
+#Adapter1.Endpoints=tcp -h localhost -p 10000 -z -t 10000 : udp -h localhost -p 10000 -z
+Adapter1.Endpoints=tcp -h localhost -p 10000
+
+Adapter1.ThreadPool.Size=10
+
+Ice.Warn.Connections=1
+
+Ice.Trace.Network=3
