@@ -1,3 +1,6 @@
+from IoT import *
+
+
 def get_info(handler):
     data = handler.proxy.getInfo()
     print(handler.name + " data:")
@@ -22,12 +25,12 @@ def change_settings(handler):
             setting, new_value = line.split(" ", 1)
             setting = setting.strip()
             new_value = new_value.strip()
-            new_settings[setting] = new_value
+            new_settings[setting] = int(new_value)
         except ValueError:
             print("ERROR: wrong input format")
     try:
         handler.proxy.changeSettings(new_settings)
-    except UnrecognisedSettingException as e:
+    except (UnrecognisedSettingException, IllegalSettingValueException) as e:
         print(f"ERROR: {e.reason}")
     print()
 

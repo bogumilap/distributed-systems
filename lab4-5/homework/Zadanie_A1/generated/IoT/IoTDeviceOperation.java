@@ -21,8 +21,9 @@ public interface IoTDeviceOperation extends com.zeroc.Ice.Object
 
     void changeName(String name, com.zeroc.Ice.Current current);
 
-    void changeSettings(java.util.Map<java.lang.String, java.lang.String> settings, com.zeroc.Ice.Current current)
-        throws UnrecognisedSettingException;
+    void changeSettings(java.util.Map<java.lang.String, java.lang.Short> settings, com.zeroc.Ice.Current current)
+        throws IllegalSettingValueException,
+               UnrecognisedSettingException;
 
     void returnToFactorySettings(com.zeroc.Ice.Current current);
 
@@ -99,7 +100,7 @@ public interface IoTDeviceOperation extends com.zeroc.Ice.Object
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        java.util.Map<java.lang.String, java.lang.String> iceP_settings;
+        java.util.Map<java.lang.String, java.lang.Short> iceP_settings;
         iceP_settings = SettingsHelper.read(istr);
         inS.endReadParams();
         obj.changeSettings(iceP_settings, current);

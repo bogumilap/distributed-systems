@@ -90,18 +90,24 @@ public interface IoTDeviceOperationPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
-    default void changeSettings(java.util.Map<java.lang.String, java.lang.String> settings)
-        throws UnrecognisedSettingException
+    default void changeSettings(java.util.Map<java.lang.String, java.lang.Short> settings)
+        throws IllegalSettingValueException,
+               UnrecognisedSettingException
     {
         changeSettings(settings, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default void changeSettings(java.util.Map<java.lang.String, java.lang.String> settings, java.util.Map<String, String> context)
-        throws UnrecognisedSettingException
+    default void changeSettings(java.util.Map<java.lang.String, java.lang.Short> settings, java.util.Map<String, String> context)
+        throws IllegalSettingValueException,
+               UnrecognisedSettingException
     {
         try
         {
             _iceI_changeSettingsAsync(settings, context, true).waitForResponseOrUserEx();
+        }
+        catch(IllegalSettingValueException ex)
+        {
+            throw ex;
         }
         catch(UnrecognisedSettingException ex)
         {
@@ -113,12 +119,12 @@ public interface IoTDeviceOperationPrx extends com.zeroc.Ice.ObjectPrx
         }
     }
 
-    default java.util.concurrent.CompletableFuture<Void> changeSettingsAsync(java.util.Map<java.lang.String, java.lang.String> settings)
+    default java.util.concurrent.CompletableFuture<Void> changeSettingsAsync(java.util.Map<java.lang.String, java.lang.Short> settings)
     {
         return _iceI_changeSettingsAsync(settings, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Void> changeSettingsAsync(java.util.Map<java.lang.String, java.lang.String> settings, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<Void> changeSettingsAsync(java.util.Map<java.lang.String, java.lang.Short> settings, java.util.Map<String, String> context)
     {
         return _iceI_changeSettingsAsync(settings, context, false);
     }
@@ -130,7 +136,7 @@ public interface IoTDeviceOperationPrx extends com.zeroc.Ice.ObjectPrx
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_changeSettingsAsync(java.util.Map<java.lang.String, java.lang.String> iceP_settings, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_changeSettingsAsync(java.util.Map<java.lang.String, java.lang.Short> iceP_settings, java.util.Map<String, String> context, boolean sync)
     {
         com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "changeSettings", null, sync, _iceE_changeSettings);
         f.invoke(true, context, null, ostr -> {
@@ -142,6 +148,7 @@ public interface IoTDeviceOperationPrx extends com.zeroc.Ice.ObjectPrx
     /** @hidden */
     static final Class<?>[] _iceE_changeSettings =
     {
+        IllegalSettingValueException.class,
         UnrecognisedSettingException.class
     };
 

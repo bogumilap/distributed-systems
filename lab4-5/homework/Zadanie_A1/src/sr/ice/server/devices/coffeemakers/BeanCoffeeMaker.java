@@ -116,22 +116,27 @@ public class BeanCoffeeMaker extends CoffeeMaker implements CoffeeMakerOperation
     }
 
     @Override
-    public void changeSettings(Map<String, String> settings, Current current) throws UnrecognisedSettingException {
+    public void changeSettings(Map<String, Short> settings, Current current) throws UnrecognisedSettingException {
         lock.lock();
-        for (Map.Entry<String, String> entry : settings.entrySet()) {
-            switch (entry.getKey()) {
-                case "beveragesVolume" -> beveragesVolume = Short.parseShort(entry.getValue());
-                default ->
-                        throw new UnrecognisedSettingException("Unrecognised setting " + entry.getKey() + " for " + type);
+
+        for (Map.Entry<String, Short> entry : settings.entrySet()) {
+            if ("beveragesVolume".equals(entry.getKey())) {
+                beveragesVolume = entry.getValue();
+            } else {
+                lock.unlock();
+                throw new UnrecognisedSettingException("Unrecognised setting " + entry.getKey() + " for " + type);
             }
         }
+
         lock.unlock();
     }
 
     @Override
     public void returnToFactorySettings(Current current) {
         lock.lock();
+
         beveragesVolume = beveragesVolumeInitial;
+
         lock.unlock();
     }
 }

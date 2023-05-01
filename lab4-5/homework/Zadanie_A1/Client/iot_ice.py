@@ -40,11 +40,30 @@ if 'UnrecognisedSettingException' not in _M_IoT.__dict__:
     _M_IoT.UnrecognisedSettingException = UnrecognisedSettingException
     del UnrecognisedSettingException
 
+if 'IllegalSettingValueException' not in _M_IoT.__dict__:
+    _M_IoT.IllegalSettingValueException = Ice.createTempClass()
+    class IllegalSettingValueException(Ice.UserException):
+        def __init__(self, reason=''):
+            self.reason = reason
+
+        def __str__(self):
+            return IcePy.stringifyException(self)
+
+        __repr__ = __str__
+
+        _ice_id = '::IoT::IllegalSettingValueException'
+
+    _M_IoT._t_IllegalSettingValueException = IcePy.defineException('::IoT::IllegalSettingValueException', IllegalSettingValueException, (), False, None, (('reason', (), IcePy._t_string, False, 0),))
+    IllegalSettingValueException._ice_type = _M_IoT._t_IllegalSettingValueException
+
+    _M_IoT.IllegalSettingValueException = IllegalSettingValueException
+    del IllegalSettingValueException
+
 if '_t_DeviceInfo' not in _M_IoT.__dict__:
     _M_IoT._t_DeviceInfo = IcePy.defineDictionary('::IoT::DeviceInfo', (), IcePy._t_string, IcePy._t_string)
 
 if '_t_Settings' not in _M_IoT.__dict__:
-    _M_IoT._t_Settings = IcePy.defineDictionary('::IoT::Settings', (), IcePy._t_string, IcePy._t_string)
+    _M_IoT._t_Settings = IcePy.defineDictionary('::IoT::Settings', (), IcePy._t_string, IcePy._t_short)
 
 if 'IoTDevice' not in _M_IoT.__dict__:
     _M_IoT.IoTDevice = Ice.createTempClass()
@@ -183,7 +202,7 @@ if 'IoTDeviceOperationPrx' not in _M_IoT.__dict__:
 
     IoTDeviceOperation._op_getInfo = IcePy.Operation('getInfo', Ice.OperationMode.Idempotent, Ice.OperationMode.Idempotent, False, None, (), (), (), ((), _M_IoT._t_DeviceInfo, False, 0), ())
     IoTDeviceOperation._op_changeName = IcePy.Operation('changeName', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_string, False, 0),), (), None, ())
-    IoTDeviceOperation._op_changeSettings = IcePy.Operation('changeSettings', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), _M_IoT._t_Settings, False, 0),), (), None, (_M_IoT._t_UnrecognisedSettingException,))
+    IoTDeviceOperation._op_changeSettings = IcePy.Operation('changeSettings', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), _M_IoT._t_Settings, False, 0),), (), None, (_M_IoT._t_UnrecognisedSettingException, _M_IoT._t_IllegalSettingValueException))
     IoTDeviceOperation._op_returnToFactorySettings = IcePy.Operation('returnToFactorySettings', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), None, ())
 
     _M_IoT.IoTDeviceOperation = IoTDeviceOperation
@@ -534,5 +553,82 @@ if 'CoffeeMakerOperationPrx' not in _M_IoT.__dict__:
 
     _M_IoT.CoffeeMakerOperation = CoffeeMakerOperation
     del CoffeeMakerOperation
+
+if 'Camera' not in _M_IoT.__dict__:
+    _M_IoT.Camera = Ice.createTempClass()
+    class Camera(_M_IoT.IoTDevice):
+        def __init__(self, name='', brand='', model='', type='', pan=0, tilt=0, zoom=0):
+            _M_IoT.IoTDevice.__init__(self, name, brand, model, type)
+            self.pan = pan
+            self.tilt = tilt
+            self.zoom = zoom
+
+        def ice_id(self):
+            return '::IoT::Camera'
+
+        @staticmethod
+        def ice_staticId():
+            return '::IoT::Camera'
+
+        def __str__(self):
+            return IcePy.stringify(self, _M_IoT._t_Camera)
+
+        __repr__ = __str__
+
+    _M_IoT._t_Camera = IcePy.defineValue('::IoT::Camera', Camera, -1, (), False, False, _M_IoT._t_IoTDevice, (
+        ('pan', (), IcePy._t_short, False, 0),
+        ('tilt', (), IcePy._t_short, False, 0),
+        ('zoom', (), IcePy._t_short, False, 0)
+    ))
+    Camera._ice_type = _M_IoT._t_Camera
+
+    _M_IoT.Camera = Camera
+    del Camera
+
+_M_IoT._t_CameraOperation = IcePy.defineValue('::IoT::CameraOperation', Ice.Value, -1, (), False, True, None, ())
+
+if 'CameraOperationPrx' not in _M_IoT.__dict__:
+    _M_IoT.CameraOperationPrx = Ice.createTempClass()
+    class CameraOperationPrx(_M_IoT.IoTDeviceOperationPrx):
+
+        @staticmethod
+        def checkedCast(proxy, facetOrContext=None, context=None):
+            return _M_IoT.CameraOperationPrx.ice_checkedCast(proxy, '::IoT::CameraOperation', facetOrContext, context)
+
+        @staticmethod
+        def uncheckedCast(proxy, facet=None):
+            return _M_IoT.CameraOperationPrx.ice_uncheckedCast(proxy, facet)
+
+        @staticmethod
+        def ice_staticId():
+            return '::IoT::CameraOperation'
+    _M_IoT._t_CameraOperationPrx = IcePy.defineProxy('::IoT::CameraOperation', CameraOperationPrx)
+
+    _M_IoT.CameraOperationPrx = CameraOperationPrx
+    del CameraOperationPrx
+
+    _M_IoT.CameraOperation = Ice.createTempClass()
+    class CameraOperation(_M_IoT.IoTDeviceOperation):
+
+        def ice_ids(self, current=None):
+            return ('::Ice::Object', '::IoT::CameraOperation', '::IoT::IoTDeviceOperation')
+
+        def ice_id(self, current=None):
+            return '::IoT::CameraOperation'
+
+        @staticmethod
+        def ice_staticId():
+            return '::IoT::CameraOperation'
+
+        def __str__(self):
+            return IcePy.stringify(self, _M_IoT._t_CameraOperationDisp)
+
+        __repr__ = __str__
+
+    _M_IoT._t_CameraOperationDisp = IcePy.defineClass('::IoT::CameraOperation', CameraOperation, (), None, (_M_IoT._t_IoTDeviceOperationDisp,))
+    CameraOperation._ice_type = _M_IoT._t_CameraOperationDisp
+
+    _M_IoT.CameraOperation = CameraOperation
+    del CameraOperation
 
 # End of module IoT

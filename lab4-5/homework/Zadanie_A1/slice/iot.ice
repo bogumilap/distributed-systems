@@ -4,10 +4,11 @@
 module IoT
 {
     // DEVICE
-    exception UnrecognisedSettingException { string reason; };  // thrown if wrong setting is passed to changeSettings() method
+    exception UnrecognisedSettingException { string reason; };  // wrong setting is passed to changeSettings() method
+    exception IllegalSettingValueException { string reason; };  // set property cannot have selected value
 
     dictionary<string, string> DeviceInfo;
-    dictionary<string, string> Settings;
+    dictionary<string, short> Settings;
 
     // device has to be split to class IoTDevice and interface IoTDeviceOperation because interface can't contain fields
     class IoTDevice {
@@ -19,7 +20,7 @@ module IoT
     interface IoTDeviceOperation {
         idempotent DeviceInfo getInfo();
         void changeName(string name);
-        void changeSettings(Settings settings) throws UnrecognisedSettingException;
+        void changeSettings(Settings settings) throws UnrecognisedSettingException, IllegalSettingValueException;
         void returnToFactorySettings();
     };
 
@@ -40,8 +41,7 @@ module IoT
         short volume;
     };
 
-    class CoffeeMaker extends IoTDevice
-    {
+    class CoffeeMaker extends IoTDevice {
         AvailableBeverageTypes beverageTypes;
         IngredientsQuantity ingredientsQuantity;
         IngredientsQuantity maxIngredientsQuantity;
@@ -53,7 +53,15 @@ module IoT
         Beverage makeBeverage(BeverageType beverageType) throws UnsupportedBeverageTypeException, NotEnoughIngredientsException;
         void increaseIngredientQuantity(Ingredient ingredient, short quantity) throws IllegalIngredientException, IllegalIngredientQuantityException;
     };
+
+    // PTZ CAMERA
+    class Camera extends IoTDevice {
+        short pan;
+        short tilt;
+        short zoom;
+    };
+    interface CameraOperation extends IoTDeviceOperation {  };
 };
 // slice2java --output-dir generated slice/iot.ice
-// generated/CoffeeMaker.java requires changing "protected" to "public" in methods _iceWriteImpl and _iceReadImpl
+// generated/CoffeeMaker.java and Camera.java require changing "protected" to "public" in methods _iceWriteImpl and _iceReadImpl
 #endif

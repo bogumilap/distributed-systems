@@ -6,6 +6,7 @@ import com.zeroc.Ice.ObjectAdapter;
 import com.zeroc.Ice.Util;
 import sr.ice.server.servants.coffeemakers.BeanCoffeMakerServant;
 import sr.ice.server.servants.coffeemakers.CapsuleCoffeeMakerServant;
+import sr.ice.server.servants.ptzcameras.PTZCameraServant;
 
 public class IceServer {
     public void t1(String[] args) {
@@ -22,20 +23,12 @@ public class IceServer {
             // 3. Utworzenie serwanta/serwantów
             BeanCoffeMakerServant beanCoffeMakerServant = new BeanCoffeMakerServant("Bean #1", "PHILIPS", "123ABC");
             CapsuleCoffeeMakerServant capsuleCoffeeMakerServant = new CapsuleCoffeeMakerServant("Capsule #1", "DeLonghi", "XYZ");
+            PTZCameraServant ptzCameraServant = new PTZCameraServant("PTZ", "Canon", "Security 45321");
 
             // 4. Dodanie wpisów do tablicy ASM, skojarzenie nazwy obiektu (Identity) z serwantem
             adapter.add(beanCoffeMakerServant, new Identity("BeanCoffeeMaker", "coffeemakers"));
             adapter.add(capsuleCoffeeMakerServant, new Identity("CapsuleCoffeeMaker", "coffeemakers"));
-
-            // zadanie 10: Strategia: wiele obiektów, wspólny serwant. W kodzie serwera skojarz nowy obiekt o nazwie
-            // calc33 i kategorii calc z dotychczasowym serwantem
-//			adapter.add(calcServant1, new Identity("calc33", "calc"));
-
-            // zadanie 11: Strategia: wiele obiektów, każdy z dedykowanym serwantem. Stwórz nowy (dodatkowy) obiekt
-            // serwanta i skojarz z nim obiekt o nazwie calc33 i kategorii calc
-//            DeviceI calcServant3 = new DeviceI();
-//            adapter.add(calcServant3, new Identity("calc33", "calc"));
-
+            adapter.add(ptzCameraServant, new Identity("PTZCamera", "cameras"));
 
             // 5. Aktywacja adaptera i wejście w pętlę przetwarzania żądań
             adapter.activate();

@@ -18,14 +18,6 @@ public class BeanCoffeMakerServant implements CoffeeMakerOperation {
         this.model = model;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     private void createInstance() {
         if (instance == null) {
             System.out.println("Creating instance...");
@@ -59,7 +51,7 @@ public class BeanCoffeMakerServant implements CoffeeMakerOperation {
     }
 
     @Override
-    public void changeSettings(Map<String, String> settings, Current current) throws UnrecognisedSettingException {
+    public void changeSettings(Map<String, Short> settings, Current current) throws UnrecognisedSettingException {
         createInstance();
         instance.changeSettings(settings, current);
     }

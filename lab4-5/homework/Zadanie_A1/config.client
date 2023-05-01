@@ -1,5 +1,6 @@
 BeanCoffeeMaker=coffeemakers/BeanCoffeeMaker:tcp -h localhost -p 10000:udp -h localhost -p 10000
 CapsuleCoffeeMaker=coffeemakers/CapsuleCoffeeMaker:tcp -h localhost -p 10000:udp -h localhost -p 10000
+PTZCamera=cameras/PTZCamera:tcp -h localhost -p 10000:udp -h localhost -p 10000
 
 Ice.Warn.Connections=1
 

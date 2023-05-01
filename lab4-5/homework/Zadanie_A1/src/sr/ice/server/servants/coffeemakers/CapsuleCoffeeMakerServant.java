@@ -2,7 +2,6 @@ package sr.ice.server.servants.coffeemakers;
 
 import IoT.*;
 import com.zeroc.Ice.Current;
-import sr.ice.server.devices.coffeemakers.BeanCoffeeMaker;
 import sr.ice.server.devices.coffeemakers.CapsuleCoffeeMaker;
 
 import java.util.Map;
@@ -17,14 +16,6 @@ public class CapsuleCoffeeMakerServant implements CoffeeMakerOperation {
         this.name = name;
         this.brand = brand;
         this.model = model;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     private void createInstance() {
@@ -58,7 +49,7 @@ public class CapsuleCoffeeMakerServant implements CoffeeMakerOperation {
     }
 
     @Override
-    public void changeSettings(Map<String, String> settings, Current current) throws UnrecognisedSettingException {
+    public void changeSettings(Map<String, Short> settings, Current current) throws UnrecognisedSettingException {
         createInstance();
         instance.changeSettings(settings, current);
     }

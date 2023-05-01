@@ -1,5 +1,6 @@
 import Ice
 from IoT import *
+from handlers.cameras.ptzcam_handler import PTZCameraHandler
 from handlers.coffee_makers.beancm_handler import BeanCoffeeMakerHandler
 from handlers.coffee_makers.capsulecm_handler import CapsuleCoffeeMakerHandler
 
@@ -10,7 +11,8 @@ config_file = "../config.client"
 if __name__ == "__main__":
     with Ice.initialize(config_file) as communicator:
         devices = {"BeanCoffeeMaker": BeanCoffeeMakerHandler("BeanCoffeeMaker", communicator),
-                   "CapsuleCoffeeMaker": CapsuleCoffeeMakerHandler("CapsuleCoffeeMaker", communicator)}
+                   "CapsuleCoffeeMaker": CapsuleCoffeeMakerHandler("CapsuleCoffeeMaker", communicator),
+                   "PTZCamera": PTZCameraHandler("PTZCamera", communicator)}
 
         print("Entering event processing loop...")
 
