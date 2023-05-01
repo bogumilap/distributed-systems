@@ -4,7 +4,38 @@
     <list default="true" id="d3919229-b961-4afa-a5fc-57287e2f9ddc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../../gRPC/gen/sr/proto/AddressBookProtos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gRPC/gen/sr/proto/AddressBookProtos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../gRPC/person2.ser" beforeDir="false" afterPath="$PROJECT_DIR$/../../gRPC/person2.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zadanie A1/A1 - treść.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/handlers/coffee_makers/beancm_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/handlers/coffee_makers/beancm_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/handlers/coffee_makers/capsulecm_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/handlers/coffee_makers/capsulecm_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/handlers/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/handlers/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/iot_ice.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/iot_ice.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.client" beforeDir="false" afterPath="$PROJECT_DIR$/config.client" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/AvailableBeverageTypesHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/Beverage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/BeverageOrder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/BeverageOrdersHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/BeverageType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/CoffeeMaker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/CoffeeMakerOperation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/CoffeeMakerOperationPrx.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/CoffeesHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/DeviceInfoHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/IoTDevice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/IoTDeviceOperation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/IoTDeviceOperationPrx.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/SettingsHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/UnknownSettingException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/UnsupportedBeverageTypeException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/ValueOutOfRangeException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/_CoffeeMakerOperationPrxI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/IoT/_IoTDeviceOperationPrxI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/slice/iot.ice" beforeDir="false" afterPath="$PROJECT_DIR$/slice/iot.ice" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sr/ice/server/devices/coffeemakers/BeanCoffeeMaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sr/ice/server/devices/coffeemakers/BeanCoffeeMaker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sr/ice/server/devices/coffeemakers/CapsuleCoffeeMaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sr/ice/server/devices/coffeemakers/CapsuleCoffeeMaker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sr/ice/server/devices/coffeemakers/CoffeeMakerUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sr/ice/server/servants/coffeemakers/BeanCoffeMakerServant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sr/ice/server/servants/coffeemakers/BeanCoffeMakerServant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sr/ice/server/servants/coffeemakers/CapsuleCoffeeMakerServant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sr/ice/server/servants/coffeemakers/CapsuleCoffeeMakerServant.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +135,8 @@
       <option name="presentableId" value="Default" />
       <updated>1682800429729</updated>
       <workItem from="1682800431226" duration="4780000" />
-      <workItem from="1682870080035" duration="13874000" />
+      <workItem from="1682870080035" duration="14204000" />
+      <workItem from="1682934710786" duration="14469000" />
     </task>
     <servers />
   </component>

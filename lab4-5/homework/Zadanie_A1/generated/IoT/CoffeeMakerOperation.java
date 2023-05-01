@@ -18,7 +18,12 @@ package IoT;
 public interface CoffeeMakerOperation extends IoTDeviceOperation
 {
     Beverage makeBeverage(BeverageType beverageType, com.zeroc.Ice.Current current)
-        throws UnsupportedBeverageTypeException;
+        throws NotEnoughIngredientsException,
+               UnsupportedBeverageTypeException;
+
+    void increaseIngredientQuantity(Ingredient ingredient, short quantity, com.zeroc.Ice.Current current)
+        throws IllegalIngredientException,
+               IllegalIngredientQuantityException;
 
     /** @hidden */
     static final String[] _iceIds =
@@ -63,22 +68,46 @@ public interface CoffeeMakerOperation extends IoTDeviceOperation
         inS.endReadParams();
         Beverage ret = obj.makeBeverage(iceP_beverageType, current);
         com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeValue(ret);
-        ostr.writePendingValues();
+        Beverage.ice_write(ostr, ret);
         inS.endWriteParams(ostr);
         return inS.setResult(ostr);
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+     * @throws com.zeroc.Ice.UserException -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_increaseIngredientQuantity(CoffeeMakerOperation obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+        throws com.zeroc.Ice.UserException
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        Ingredient iceP_ingredient;
+        short iceP_quantity;
+        iceP_ingredient = Ingredient.ice_read(istr);
+        iceP_quantity = istr.readShort();
+        inS.endReadParams();
+        obj.increaseIngredientQuantity(iceP_ingredient, iceP_quantity, current);
+        return inS.setResult(inS.writeEmptyParams());
     }
 
     /** @hidden */
     final static String[] _iceOps =
     {
+        "changeName",
         "changeSettings",
         "getInfo",
         "ice_id",
         "ice_ids",
         "ice_isA",
         "ice_ping",
-        "makeBeverage"
+        "increaseIngredientQuantity",
+        "makeBeverage",
+        "returnToFactorySettings"
     };
 
     /** @hidden */
@@ -96,31 +125,43 @@ public interface CoffeeMakerOperation extends IoTDeviceOperation
         {
             case 0:
             {
-                return IoTDeviceOperation._iceD_changeSettings(this, in, current);
+                return IoTDeviceOperation._iceD_changeName(this, in, current);
             }
             case 1:
             {
-                return IoTDeviceOperation._iceD_getInfo(this, in, current);
+                return IoTDeviceOperation._iceD_changeSettings(this, in, current);
             }
             case 2:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return IoTDeviceOperation._iceD_getInfo(this, in, current);
             }
             case 3:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 4:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 5:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
             }
             case 6:
             {
+                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+            }
+            case 7:
+            {
+                return _iceD_increaseIngredientQuantity(this, in, current);
+            }
+            case 8:
+            {
                 return _iceD_makeBeverage(this, in, current);
+            }
+            case 9:
+            {
+                return IoTDeviceOperation._iceD_returnToFactorySettings(this, in, current);
             }
         }
 

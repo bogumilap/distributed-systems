@@ -15,25 +15,25 @@
 
 package IoT;
 
-public class ValueOutOfRangeException extends com.zeroc.Ice.UserException
+public class NotEnoughIngredientsException extends com.zeroc.Ice.UserException
 {
-    public ValueOutOfRangeException()
+    public NotEnoughIngredientsException()
     {
         this.reason = "";
     }
 
-    public ValueOutOfRangeException(Throwable cause)
+    public NotEnoughIngredientsException(Throwable cause)
     {
         super(cause);
         this.reason = "";
     }
 
-    public ValueOutOfRangeException(String reason)
+    public NotEnoughIngredientsException(String reason)
     {
         this.reason = reason;
     }
 
-    public ValueOutOfRangeException(String reason, Throwable cause)
+    public NotEnoughIngredientsException(String reason, Throwable cause)
     {
         super(cause);
         this.reason = reason;
@@ -41,7 +41,7 @@ public class ValueOutOfRangeException extends com.zeroc.Ice.UserException
 
     public String ice_id()
     {
-        return "::IoT::ValueOutOfRangeException";
+        return "::IoT::NotEnoughIngredientsException";
     }
 
     public String reason;
@@ -50,7 +50,7 @@ public class ValueOutOfRangeException extends com.zeroc.Ice.UserException
     @Override
     protected void _writeImpl(com.zeroc.Ice.OutputStream ostr_)
     {
-        ostr_.startSlice("::IoT::ValueOutOfRangeException", -1, true);
+        ostr_.startSlice("::IoT::NotEnoughIngredientsException", -1, true);
         ostr_.writeString(reason);
         ostr_.endSlice();
     }
@@ -65,5 +65,5 @@ public class ValueOutOfRangeException extends com.zeroc.Ice.UserException
     }
 
     /** @hidden */
-    public static final long serialVersionUID = 537930430L;
+    public static final long serialVersionUID = 36557072L;
 }

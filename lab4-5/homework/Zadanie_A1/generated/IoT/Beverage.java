@@ -15,8 +15,13 @@
 
 package IoT;
 
-public class Beverage extends com.zeroc.Ice.Value
+public class Beverage implements java.lang.Cloneable,
+                                 java.io.Serializable
 {
+    public BeverageType beverageType;
+
+    public short volume;
+
     public Beverage()
     {
         this.beverageType = BeverageType.AMERICANO;
@@ -28,46 +33,125 @@ public class Beverage extends com.zeroc.Ice.Value
         this.volume = volume;
     }
 
-    public BeverageType beverageType;
+    public boolean equals(java.lang.Object rhs)
+    {
+        if(this == rhs)
+        {
+            return true;
+        }
+        Beverage r = null;
+        if(rhs instanceof Beverage)
+        {
+            r = (Beverage)rhs;
+        }
 
-    public short volume;
+        if(r != null)
+        {
+            if(this.beverageType != r.beverageType)
+            {
+                if(this.beverageType == null || r.beverageType == null || !this.beverageType.equals(r.beverageType))
+                {
+                    return false;
+                }
+            }
+            if(this.volume != r.volume)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public int hashCode()
+    {
+        int h_ = 5381;
+        h_ = com.zeroc.IceInternal.HashUtil.hashAdd(h_, "::IoT::Beverage");
+        h_ = com.zeroc.IceInternal.HashUtil.hashAdd(h_, beverageType);
+        h_ = com.zeroc.IceInternal.HashUtil.hashAdd(h_, volume);
+        return h_;
+    }
 
     public Beverage clone()
     {
-        return (Beverage)super.clone();
+        Beverage c = null;
+        try
+        {
+            c = (Beverage)super.clone();
+        }
+        catch(CloneNotSupportedException ex)
+        {
+            assert false; // impossible
+        }
+        return c;
     }
 
-    public static String ice_staticId()
+    public void ice_writeMembers(com.zeroc.Ice.OutputStream ostr)
     {
-        return "::IoT::Beverage";
+        BeverageType.ice_write(ostr, this.beverageType);
+        ostr.writeShort(this.volume);
     }
 
-    @Override
-    public String ice_id()
+    public void ice_readMembers(com.zeroc.Ice.InputStream istr)
     {
-        return ice_staticId();
+        this.beverageType = BeverageType.ice_read(istr);
+        this.volume = istr.readShort();
     }
+
+    static public void ice_write(com.zeroc.Ice.OutputStream ostr, Beverage v)
+    {
+        if(v == null)
+        {
+            _nullMarshalValue.ice_writeMembers(ostr);
+        }
+        else
+        {
+            v.ice_writeMembers(ostr);
+        }
+    }
+
+    static public Beverage ice_read(com.zeroc.Ice.InputStream istr)
+    {
+        Beverage v = new Beverage();
+        v.ice_readMembers(istr);
+        return v;
+    }
+
+    static public void ice_write(com.zeroc.Ice.OutputStream ostr, int tag, java.util.Optional<Beverage> v)
+    {
+        if(v != null && v.isPresent())
+        {
+            ice_write(ostr, tag, v.get());
+        }
+    }
+
+    static public void ice_write(com.zeroc.Ice.OutputStream ostr, int tag, Beverage v)
+    {
+        if(ostr.writeOptional(tag, com.zeroc.Ice.OptionalFormat.FSize))
+        {
+            int pos = ostr.startSize();
+            ice_write(ostr, v);
+            ostr.endSize(pos);
+        }
+    }
+
+    static public java.util.Optional<Beverage> ice_read(com.zeroc.Ice.InputStream istr, int tag)
+    {
+        if(istr.readOptional(tag, com.zeroc.Ice.OptionalFormat.FSize))
+        {
+            istr.skip(4);
+            return java.util.Optional.of(Beverage.ice_read(istr));
+        }
+        else
+        {
+            return java.util.Optional.empty();
+        }
+    }
+
+    private static final Beverage _nullMarshalValue = new Beverage();
 
     /** @hidden */
-    public static final long serialVersionUID = -430877901L;
-
-    /** @hidden */
-    @Override
-    protected void _iceWriteImpl(com.zeroc.Ice.OutputStream ostr_)
-    {
-        ostr_.startSlice(ice_staticId(), -1, true);
-        BeverageType.ice_write(ostr_, beverageType);
-        ostr_.writeShort(volume);
-        ostr_.endSlice();
-    }
-
-    /** @hidden */
-    @Override
-    protected void _iceReadImpl(com.zeroc.Ice.InputStream istr_)
-    {
-        istr_.startSlice();
-        beverageType = BeverageType.ice_read(istr_);
-        volume = istr_.readShort();
-        istr_.endSlice();
-    }
+    public static final long serialVersionUID = -817503511L;
 }

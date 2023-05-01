@@ -34,9 +34,15 @@ public class CapsuleCoffeeMakerServant implements CoffeeMakerOperation {
     }
 
     @Override
-    public Beverage makeBeverage(BeverageType beverageType, Current current) throws UnsupportedBeverageTypeException {
+    public Beverage makeBeverage(BeverageType beverageType, Current current) throws UnsupportedBeverageTypeException, NotEnoughIngredientsException {
         createInstance();
         return instance.makeBeverage(beverageType, current);
+    }
+
+    @Override
+    public void increaseIngredientQuantity(Ingredient ingredient, short quantity, Current current) throws IllegalIngredientException, IllegalIngredientQuantityException {
+        createInstance();
+        instance.increaseIngredientQuantity(ingredient, quantity, current);
     }
 
     @Override
@@ -46,8 +52,20 @@ public class CapsuleCoffeeMakerServant implements CoffeeMakerOperation {
     }
 
     @Override
-    public void changeSettings(Map<String, String> settings, Current current) throws UnknownSettingException, ValueOutOfRangeException {
+    public void changeName(String name, Current current) {
+        createInstance();
+        instance.changeName(name, current);
+    }
+
+    @Override
+    public void changeSettings(Map<String, String> settings, Current current) throws UnrecognisedSettingException {
         createInstance();
         instance.changeSettings(settings, current);
+    }
+
+    @Override
+    public void returnToFactorySettings(Current current) {
+        createInstance();
+        instance.returnToFactorySettings(current);
     }
 }

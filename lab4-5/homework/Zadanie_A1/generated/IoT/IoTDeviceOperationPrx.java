@@ -54,26 +54,56 @@ public interface IoTDeviceOperationPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
+    default void changeName(String name)
+    {
+        changeName(name, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void changeName(String name, java.util.Map<String, String> context)
+    {
+        _iceI_changeNameAsync(name, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> changeNameAsync(String name)
+    {
+        return _iceI_changeNameAsync(name, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> changeNameAsync(String name, java.util.Map<String, String> context)
+    {
+        return _iceI_changeNameAsync(name, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_name -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_changeNameAsync(String iceP_name, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "changeName", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_name);
+                 }, null);
+        return f;
+    }
+
     default void changeSettings(java.util.Map<java.lang.String, java.lang.String> settings)
-        throws UnknownSettingException,
-               ValueOutOfRangeException
+        throws UnrecognisedSettingException
     {
         changeSettings(settings, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
     default void changeSettings(java.util.Map<java.lang.String, java.lang.String> settings, java.util.Map<String, String> context)
-        throws UnknownSettingException,
-               ValueOutOfRangeException
+        throws UnrecognisedSettingException
     {
         try
         {
             _iceI_changeSettingsAsync(settings, context, true).waitForResponseOrUserEx();
         }
-        catch(UnknownSettingException ex)
-        {
-            throw ex;
-        }
-        catch(ValueOutOfRangeException ex)
+        catch(UnrecognisedSettingException ex)
         {
             throw ex;
         }
@@ -102,7 +132,7 @@ public interface IoTDeviceOperationPrx extends com.zeroc.Ice.ObjectPrx
      **/
     default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_changeSettingsAsync(java.util.Map<java.lang.String, java.lang.String> iceP_settings, java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "changeSettings", com.zeroc.Ice.OperationMode.Idempotent, sync, _iceE_changeSettings);
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "changeSettings", null, sync, _iceE_changeSettings);
         f.invoke(true, context, null, ostr -> {
                      SettingsHelper.write(ostr, iceP_settings);
                  }, null);
@@ -112,9 +142,41 @@ public interface IoTDeviceOperationPrx extends com.zeroc.Ice.ObjectPrx
     /** @hidden */
     static final Class<?>[] _iceE_changeSettings =
     {
-        UnknownSettingException.class,
-        ValueOutOfRangeException.class
+        UnrecognisedSettingException.class
     };
+
+    default void returnToFactorySettings()
+    {
+        returnToFactorySettings(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void returnToFactorySettings(java.util.Map<String, String> context)
+    {
+        _iceI_returnToFactorySettingsAsync(context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> returnToFactorySettingsAsync()
+    {
+        return _iceI_returnToFactorySettingsAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> returnToFactorySettingsAsync(java.util.Map<String, String> context)
+    {
+        return _iceI_returnToFactorySettingsAsync(context, false);
+    }
+
+    /**
+     * @hidden
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_returnToFactorySettingsAsync(java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "returnToFactorySettings", null, sync, null);
+        f.invoke(false, context, null, null, null);
+        return f;
+    }
 
     /**
      * Contacts the remote server to verify that the object implements this type.

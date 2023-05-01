@@ -21,9 +21,9 @@ import Ice, IcePy
 _M_IoT = Ice.openModule('IoT')
 __name__ = 'IoT'
 
-if 'ValueOutOfRangeException' not in _M_IoT.__dict__:
-    _M_IoT.ValueOutOfRangeException = Ice.createTempClass()
-    class ValueOutOfRangeException(Ice.UserException):
+if 'UnrecognisedSettingException' not in _M_IoT.__dict__:
+    _M_IoT.UnrecognisedSettingException = Ice.createTempClass()
+    class UnrecognisedSettingException(Ice.UserException):
         def __init__(self, reason=''):
             self.reason = reason
 
@@ -32,51 +32,13 @@ if 'ValueOutOfRangeException' not in _M_IoT.__dict__:
 
         __repr__ = __str__
 
-        _ice_id = '::IoT::ValueOutOfRangeException'
+        _ice_id = '::IoT::UnrecognisedSettingException'
 
-    _M_IoT._t_ValueOutOfRangeException = IcePy.defineException('::IoT::ValueOutOfRangeException', ValueOutOfRangeException, (), False, None, (('reason', (), IcePy._t_string, False, 0),))
-    ValueOutOfRangeException._ice_type = _M_IoT._t_ValueOutOfRangeException
+    _M_IoT._t_UnrecognisedSettingException = IcePy.defineException('::IoT::UnrecognisedSettingException', UnrecognisedSettingException, (), False, None, (('reason', (), IcePy._t_string, False, 0),))
+    UnrecognisedSettingException._ice_type = _M_IoT._t_UnrecognisedSettingException
 
-    _M_IoT.ValueOutOfRangeException = ValueOutOfRangeException
-    del ValueOutOfRangeException
-
-if 'UnknownSettingException' not in _M_IoT.__dict__:
-    _M_IoT.UnknownSettingException = Ice.createTempClass()
-    class UnknownSettingException(Ice.UserException):
-        def __init__(self, reason=''):
-            self.reason = reason
-
-        def __str__(self):
-            return IcePy.stringifyException(self)
-
-        __repr__ = __str__
-
-        _ice_id = '::IoT::UnknownSettingException'
-
-    _M_IoT._t_UnknownSettingException = IcePy.defineException('::IoT::UnknownSettingException', UnknownSettingException, (), False, None, (('reason', (), IcePy._t_string, False, 0),))
-    UnknownSettingException._ice_type = _M_IoT._t_UnknownSettingException
-
-    _M_IoT.UnknownSettingException = UnknownSettingException
-    del UnknownSettingException
-
-if 'UnsupportedBeverageTypeException' not in _M_IoT.__dict__:
-    _M_IoT.UnsupportedBeverageTypeException = Ice.createTempClass()
-    class UnsupportedBeverageTypeException(Ice.UserException):
-        def __init__(self, reason=''):
-            self.reason = reason
-
-        def __str__(self):
-            return IcePy.stringifyException(self)
-
-        __repr__ = __str__
-
-        _ice_id = '::IoT::UnsupportedBeverageTypeException'
-
-    _M_IoT._t_UnsupportedBeverageTypeException = IcePy.defineException('::IoT::UnsupportedBeverageTypeException', UnsupportedBeverageTypeException, (), False, None, (('reason', (), IcePy._t_string, False, 0),))
-    UnsupportedBeverageTypeException._ice_type = _M_IoT._t_UnsupportedBeverageTypeException
-
-    _M_IoT.UnsupportedBeverageTypeException = UnsupportedBeverageTypeException
-    del UnsupportedBeverageTypeException
+    _M_IoT.UnrecognisedSettingException = UnrecognisedSettingException
+    del UnrecognisedSettingException
 
 if '_t_DeviceInfo' not in _M_IoT.__dict__:
     _M_IoT._t_DeviceInfo = IcePy.defineDictionary('::IoT::DeviceInfo', (), IcePy._t_string, IcePy._t_string)
@@ -134,6 +96,18 @@ if 'IoTDeviceOperationPrx' not in _M_IoT.__dict__:
         def end_getInfo(self, _r):
             return _M_IoT.IoTDeviceOperation._op_getInfo.end(self, _r)
 
+        def changeName(self, name, context=None):
+            return _M_IoT.IoTDeviceOperation._op_changeName.invoke(self, ((name, ), context))
+
+        def changeNameAsync(self, name, context=None):
+            return _M_IoT.IoTDeviceOperation._op_changeName.invokeAsync(self, ((name, ), context))
+
+        def begin_changeName(self, name, _response=None, _ex=None, _sent=None, context=None):
+            return _M_IoT.IoTDeviceOperation._op_changeName.begin(self, ((name, ), _response, _ex, _sent, context))
+
+        def end_changeName(self, _r):
+            return _M_IoT.IoTDeviceOperation._op_changeName.end(self, _r)
+
         def changeSettings(self, settings, context=None):
             return _M_IoT.IoTDeviceOperation._op_changeSettings.invoke(self, ((settings, ), context))
 
@@ -145,6 +119,18 @@ if 'IoTDeviceOperationPrx' not in _M_IoT.__dict__:
 
         def end_changeSettings(self, _r):
             return _M_IoT.IoTDeviceOperation._op_changeSettings.end(self, _r)
+
+        def returnToFactorySettings(self, context=None):
+            return _M_IoT.IoTDeviceOperation._op_returnToFactorySettings.invoke(self, ((), context))
+
+        def returnToFactorySettingsAsync(self, context=None):
+            return _M_IoT.IoTDeviceOperation._op_returnToFactorySettings.invokeAsync(self, ((), context))
+
+        def begin_returnToFactorySettings(self, _response=None, _ex=None, _sent=None, context=None):
+            return _M_IoT.IoTDeviceOperation._op_returnToFactorySettings.begin(self, ((), _response, _ex, _sent, context))
+
+        def end_returnToFactorySettings(self, _r):
+            return _M_IoT.IoTDeviceOperation._op_returnToFactorySettings.end(self, _r)
 
         @staticmethod
         def checkedCast(proxy, facetOrContext=None, context=None):
@@ -178,8 +164,14 @@ if 'IoTDeviceOperationPrx' not in _M_IoT.__dict__:
         def getInfo(self, current=None):
             raise NotImplementedError("servant method 'getInfo' not implemented")
 
+        def changeName(self, name, current=None):
+            raise NotImplementedError("servant method 'changeName' not implemented")
+
         def changeSettings(self, settings, current=None):
             raise NotImplementedError("servant method 'changeSettings' not implemented")
+
+        def returnToFactorySettings(self, current=None):
+            raise NotImplementedError("servant method 'returnToFactorySettings' not implemented")
 
         def __str__(self):
             return IcePy.stringify(self, _M_IoT._t_IoTDeviceOperationDisp)
@@ -190,7 +182,9 @@ if 'IoTDeviceOperationPrx' not in _M_IoT.__dict__:
     IoTDeviceOperation._ice_type = _M_IoT._t_IoTDeviceOperationDisp
 
     IoTDeviceOperation._op_getInfo = IcePy.Operation('getInfo', Ice.OperationMode.Idempotent, Ice.OperationMode.Idempotent, False, None, (), (), (), ((), _M_IoT._t_DeviceInfo, False, 0), ())
-    IoTDeviceOperation._op_changeSettings = IcePy.Operation('changeSettings', Ice.OperationMode.Idempotent, Ice.OperationMode.Idempotent, False, None, (), (((), _M_IoT._t_Settings, False, 0),), (), None, (_M_IoT._t_UnknownSettingException, _M_IoT._t_ValueOutOfRangeException))
+    IoTDeviceOperation._op_changeName = IcePy.Operation('changeName', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_string, False, 0),), (), None, ())
+    IoTDeviceOperation._op_changeSettings = IcePy.Operation('changeSettings', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), _M_IoT._t_Settings, False, 0),), (), None, (_M_IoT._t_UnrecognisedSettingException,))
+    IoTDeviceOperation._op_returnToFactorySettings = IcePy.Operation('returnToFactorySettings', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (), (), None, ())
 
     _M_IoT.IoTDeviceOperation = IoTDeviceOperation
     del IoTDeviceOperation
@@ -225,75 +219,217 @@ if 'BeverageType' not in _M_IoT.__dict__:
 if '_t_AvailableBeverageTypes' not in _M_IoT.__dict__:
     _M_IoT._t_AvailableBeverageTypes = IcePy.defineSequence('::IoT::AvailableBeverageTypes', (), _M_IoT._t_BeverageType)
 
-if 'BeverageOrder' not in _M_IoT.__dict__:
-    _M_IoT.BeverageOrder = Ice.createTempClass()
-    class BeverageOrder(Ice.Value):
-        def __init__(self, beverageType=_M_IoT.BeverageType.AMERICANO, volume=0):
-            self.beverageType = beverageType
-            self.volume = volume
-
-        def ice_id(self):
-            return '::IoT::BeverageOrder'
-
-        @staticmethod
-        def ice_staticId():
-            return '::IoT::BeverageOrder'
+if 'UnsupportedBeverageTypeException' not in _M_IoT.__dict__:
+    _M_IoT.UnsupportedBeverageTypeException = Ice.createTempClass()
+    class UnsupportedBeverageTypeException(Ice.UserException):
+        def __init__(self, reason=''):
+            self.reason = reason
 
         def __str__(self):
-            return IcePy.stringify(self, _M_IoT._t_BeverageOrder)
+            return IcePy.stringifyException(self)
 
         __repr__ = __str__
 
-    _M_IoT._t_BeverageOrder = IcePy.defineValue('::IoT::BeverageOrder', BeverageOrder, -1, (), False, False, None, (
-        ('beverageType', (), _M_IoT._t_BeverageType, False, 0),
-        ('volume', (), IcePy._t_short, False, 0)
-    ))
-    BeverageOrder._ice_type = _M_IoT._t_BeverageOrder
+        _ice_id = '::IoT::UnsupportedBeverageTypeException'
 
-    _M_IoT.BeverageOrder = BeverageOrder
-    del BeverageOrder
+    _M_IoT._t_UnsupportedBeverageTypeException = IcePy.defineException('::IoT::UnsupportedBeverageTypeException', UnsupportedBeverageTypeException, (), False, None, (('reason', (), IcePy._t_string, False, 0),))
+    UnsupportedBeverageTypeException._ice_type = _M_IoT._t_UnsupportedBeverageTypeException
 
-if '_t_BeverageOrders' not in _M_IoT.__dict__:
-    _M_IoT._t_BeverageOrders = IcePy.defineSequence('::IoT::BeverageOrders', (), _M_IoT._t_BeverageOrder)
+    _M_IoT.UnsupportedBeverageTypeException = UnsupportedBeverageTypeException
+    del UnsupportedBeverageTypeException
+
+if 'Ingredient' not in _M_IoT.__dict__:
+    _M_IoT.Ingredient = Ice.createTempClass()
+    class Ingredient(Ice.EnumBase):
+
+        def __init__(self, _n, _v):
+            Ice.EnumBase.__init__(self, _n, _v)
+
+        def valueOf(self, _n):
+            if _n in self._enumerators:
+                return self._enumerators[_n]
+            return None
+        valueOf = classmethod(valueOf)
+
+    Ingredient.COFFEEBEANS = Ingredient("COFFEEBEANS", 0)
+    Ingredient.COFFEECAPSULES = Ingredient("COFFEECAPSULES", 1)
+    Ingredient.CARAMELMACCHIATOCAPSULES = Ingredient("CARAMELMACCHIATOCAPSULES", 2)
+    Ingredient.TEACAPSULES = Ingredient("TEACAPSULES", 3)
+    Ingredient.CHOCOLATECAPSULES = Ingredient("CHOCOLATECAPSULES", 4)
+    Ingredient.MILK = Ingredient("MILK", 5)
+    Ingredient._enumerators = { 0:Ingredient.COFFEEBEANS, 1:Ingredient.COFFEECAPSULES, 2:Ingredient.CARAMELMACCHIATOCAPSULES, 3:Ingredient.TEACAPSULES, 4:Ingredient.CHOCOLATECAPSULES, 5:Ingredient.MILK }
+
+    _M_IoT._t_Ingredient = IcePy.defineEnum('::IoT::Ingredient', Ingredient, (), Ingredient._enumerators)
+
+    _M_IoT.Ingredient = Ingredient
+    del Ingredient
+
+if '_t_IngredientsQuantity' not in _M_IoT.__dict__:
+    _M_IoT._t_IngredientsQuantity = IcePy.defineDictionary('::IoT::IngredientsQuantity', (), _M_IoT._t_Ingredient, IcePy._t_short)
+
+if '_t_RequiredIngredientsQuantity' not in _M_IoT.__dict__:
+    _M_IoT._t_RequiredIngredientsQuantity = IcePy.defineDictionary('::IoT::RequiredIngredientsQuantity', (), _M_IoT._t_BeverageType, _M_IoT._t_IngredientsQuantity)
+
+if 'NotEnoughIngredientsException' not in _M_IoT.__dict__:
+    _M_IoT.NotEnoughIngredientsException = Ice.createTempClass()
+    class NotEnoughIngredientsException(Ice.UserException):
+        def __init__(self, reason=''):
+            self.reason = reason
+
+        def __str__(self):
+            return IcePy.stringifyException(self)
+
+        __repr__ = __str__
+
+        _ice_id = '::IoT::NotEnoughIngredientsException'
+
+    _M_IoT._t_NotEnoughIngredientsException = IcePy.defineException('::IoT::NotEnoughIngredientsException', NotEnoughIngredientsException, (), False, None, (('reason', (), IcePy._t_string, False, 0),))
+    NotEnoughIngredientsException._ice_type = _M_IoT._t_NotEnoughIngredientsException
+
+    _M_IoT.NotEnoughIngredientsException = NotEnoughIngredientsException
+    del NotEnoughIngredientsException
+
+if 'IllegalIngredientQuantityException' not in _M_IoT.__dict__:
+    _M_IoT.IllegalIngredientQuantityException = Ice.createTempClass()
+    class IllegalIngredientQuantityException(Ice.UserException):
+        def __init__(self, reason=''):
+            self.reason = reason
+
+        def __str__(self):
+            return IcePy.stringifyException(self)
+
+        __repr__ = __str__
+
+        _ice_id = '::IoT::IllegalIngredientQuantityException'
+
+    _M_IoT._t_IllegalIngredientQuantityException = IcePy.defineException('::IoT::IllegalIngredientQuantityException', IllegalIngredientQuantityException, (), False, None, (('reason', (), IcePy._t_string, False, 0),))
+    IllegalIngredientQuantityException._ice_type = _M_IoT._t_IllegalIngredientQuantityException
+
+    _M_IoT.IllegalIngredientQuantityException = IllegalIngredientQuantityException
+    del IllegalIngredientQuantityException
+
+if 'IllegalIngredientException' not in _M_IoT.__dict__:
+    _M_IoT.IllegalIngredientException = Ice.createTempClass()
+    class IllegalIngredientException(Ice.UserException):
+        def __init__(self, reason=''):
+            self.reason = reason
+
+        def __str__(self):
+            return IcePy.stringifyException(self)
+
+        __repr__ = __str__
+
+        _ice_id = '::IoT::IllegalIngredientException'
+
+    _M_IoT._t_IllegalIngredientException = IcePy.defineException('::IoT::IllegalIngredientException', IllegalIngredientException, (), False, None, (('reason', (), IcePy._t_string, False, 0),))
+    IllegalIngredientException._ice_type = _M_IoT._t_IllegalIngredientException
+
+    _M_IoT.IllegalIngredientException = IllegalIngredientException
+    del IllegalIngredientException
 
 if 'Beverage' not in _M_IoT.__dict__:
     _M_IoT.Beverage = Ice.createTempClass()
-    class Beverage(Ice.Value):
+    class Beverage(object):
         def __init__(self, beverageType=_M_IoT.BeverageType.AMERICANO, volume=0):
             self.beverageType = beverageType
             self.volume = volume
 
-        def ice_id(self):
-            return '::IoT::Beverage'
+        def __hash__(self):
+            _h = 0
+            _h = 5 * _h + Ice.getHash(self.beverageType)
+            _h = 5 * _h + Ice.getHash(self.volume)
+            return _h % 0x7fffffff
 
-        @staticmethod
-        def ice_staticId():
-            return '::IoT::Beverage'
+        def __compare(self, other):
+            if other is None:
+                return 1
+            elif not isinstance(other, _M_IoT.Beverage):
+                return NotImplemented
+            else:
+                if self.beverageType is None or other.beverageType is None:
+                    if self.beverageType != other.beverageType:
+                        return (-1 if self.beverageType is None else 1)
+                else:
+                    if self.beverageType < other.beverageType:
+                        return -1
+                    elif self.beverageType > other.beverageType:
+                        return 1
+                if self.volume is None or other.volume is None:
+                    if self.volume != other.volume:
+                        return (-1 if self.volume is None else 1)
+                else:
+                    if self.volume < other.volume:
+                        return -1
+                    elif self.volume > other.volume:
+                        return 1
+                return 0
+
+        def __lt__(self, other):
+            r = self.__compare(other)
+            if r is NotImplemented:
+                return r
+            else:
+                return r < 0
+
+        def __le__(self, other):
+            r = self.__compare(other)
+            if r is NotImplemented:
+                return r
+            else:
+                return r <= 0
+
+        def __gt__(self, other):
+            r = self.__compare(other)
+            if r is NotImplemented:
+                return r
+            else:
+                return r > 0
+
+        def __ge__(self, other):
+            r = self.__compare(other)
+            if r is NotImplemented:
+                return r
+            else:
+                return r >= 0
+
+        def __eq__(self, other):
+            r = self.__compare(other)
+            if r is NotImplemented:
+                return r
+            else:
+                return r == 0
+
+        def __ne__(self, other):
+            r = self.__compare(other)
+            if r is NotImplemented:
+                return r
+            else:
+                return r != 0
 
         def __str__(self):
             return IcePy.stringify(self, _M_IoT._t_Beverage)
 
         __repr__ = __str__
 
-    _M_IoT._t_Beverage = IcePy.defineValue('::IoT::Beverage', Beverage, -1, (), False, False, None, (
-        ('beverageType', (), _M_IoT._t_BeverageType, False, 0),
-        ('volume', (), IcePy._t_short, False, 0)
+    _M_IoT._t_Beverage = IcePy.defineStruct('::IoT::Beverage', Beverage, (), (
+        ('beverageType', (), _M_IoT._t_BeverageType),
+        ('volume', (), IcePy._t_short)
     ))
-    Beverage._ice_type = _M_IoT._t_Beverage
 
     _M_IoT.Beverage = Beverage
     del Beverage
 
-if '_t_Coffees' not in _M_IoT.__dict__:
-    _M_IoT._t_Coffees = IcePy.defineSequence('::IoT::Coffees', (), _M_IoT._t_Beverage)
-
 if 'CoffeeMaker' not in _M_IoT.__dict__:
     _M_IoT.CoffeeMaker = Ice.createTempClass()
     class CoffeeMaker(_M_IoT.IoTDevice):
-        def __init__(self, name='', brand='', model='', type='', volume=0, beverageTypes=None):
+        def __init__(self, name='', brand='', model='', type='', beverageTypes=None, ingredientsQuantity=None, maxIngredientsQuantity=None, requiredIngredientsQuantity=None, beveragesVolume=0, beveragesVolumeInitial=0):
             _M_IoT.IoTDevice.__init__(self, name, brand, model, type)
-            self.volume = volume
             self.beverageTypes = beverageTypes
+            self.ingredientsQuantity = ingredientsQuantity
+            self.maxIngredientsQuantity = maxIngredientsQuantity
+            self.requiredIngredientsQuantity = requiredIngredientsQuantity
+            self.beveragesVolume = beveragesVolume
+            self.beveragesVolumeInitial = beveragesVolumeInitial
 
         def ice_id(self):
             return '::IoT::CoffeeMaker'
@@ -308,8 +444,12 @@ if 'CoffeeMaker' not in _M_IoT.__dict__:
         __repr__ = __str__
 
     _M_IoT._t_CoffeeMaker = IcePy.defineValue('::IoT::CoffeeMaker', CoffeeMaker, -1, (), False, False, _M_IoT._t_IoTDevice, (
-        ('volume', (), IcePy._t_short, False, 0),
-        ('beverageTypes', (), _M_IoT._t_AvailableBeverageTypes, False, 0)
+        ('beverageTypes', (), _M_IoT._t_AvailableBeverageTypes, False, 0),
+        ('ingredientsQuantity', (), _M_IoT._t_IngredientsQuantity, False, 0),
+        ('maxIngredientsQuantity', (), _M_IoT._t_IngredientsQuantity, False, 0),
+        ('requiredIngredientsQuantity', (), _M_IoT._t_RequiredIngredientsQuantity, False, 0),
+        ('beveragesVolume', (), IcePy._t_short, False, 0),
+        ('beveragesVolumeInitial', (), IcePy._t_short, False, 0)
     ))
     CoffeeMaker._ice_type = _M_IoT._t_CoffeeMaker
 
@@ -333,6 +473,18 @@ if 'CoffeeMakerOperationPrx' not in _M_IoT.__dict__:
 
         def end_makeBeverage(self, _r):
             return _M_IoT.CoffeeMakerOperation._op_makeBeverage.end(self, _r)
+
+        def increaseIngredientQuantity(self, ingredient, quantity, context=None):
+            return _M_IoT.CoffeeMakerOperation._op_increaseIngredientQuantity.invoke(self, ((ingredient, quantity), context))
+
+        def increaseIngredientQuantityAsync(self, ingredient, quantity, context=None):
+            return _M_IoT.CoffeeMakerOperation._op_increaseIngredientQuantity.invokeAsync(self, ((ingredient, quantity), context))
+
+        def begin_increaseIngredientQuantity(self, ingredient, quantity, _response=None, _ex=None, _sent=None, context=None):
+            return _M_IoT.CoffeeMakerOperation._op_increaseIngredientQuantity.begin(self, ((ingredient, quantity), _response, _ex, _sent, context))
+
+        def end_increaseIngredientQuantity(self, _r):
+            return _M_IoT.CoffeeMakerOperation._op_increaseIngredientQuantity.end(self, _r)
 
         @staticmethod
         def checkedCast(proxy, facetOrContext=None, context=None):
@@ -366,6 +518,9 @@ if 'CoffeeMakerOperationPrx' not in _M_IoT.__dict__:
         def makeBeverage(self, beverageType, current=None):
             raise NotImplementedError("servant method 'makeBeverage' not implemented")
 
+        def increaseIngredientQuantity(self, ingredient, quantity, current=None):
+            raise NotImplementedError("servant method 'increaseIngredientQuantity' not implemented")
+
         def __str__(self):
             return IcePy.stringify(self, _M_IoT._t_CoffeeMakerOperationDisp)
 
@@ -374,7 +529,8 @@ if 'CoffeeMakerOperationPrx' not in _M_IoT.__dict__:
     _M_IoT._t_CoffeeMakerOperationDisp = IcePy.defineClass('::IoT::CoffeeMakerOperation', CoffeeMakerOperation, (), None, (_M_IoT._t_IoTDeviceOperationDisp,))
     CoffeeMakerOperation._ice_type = _M_IoT._t_CoffeeMakerOperationDisp
 
-    CoffeeMakerOperation._op_makeBeverage = IcePy.Operation('makeBeverage', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), _M_IoT._t_BeverageType, False, 0),), (), ((), _M_IoT._t_Beverage, False, 0), (_M_IoT._t_UnsupportedBeverageTypeException,))
+    CoffeeMakerOperation._op_makeBeverage = IcePy.Operation('makeBeverage', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), _M_IoT._t_BeverageType, False, 0),), (), ((), _M_IoT._t_Beverage, False, 0), (_M_IoT._t_UnsupportedBeverageTypeException, _M_IoT._t_NotEnoughIngredientsException))
+    CoffeeMakerOperation._op_increaseIngredientQuantity = IcePy.Operation('increaseIngredientQuantity', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), _M_IoT._t_Ingredient, False, 0), ((), IcePy._t_short, False, 0)), (), None, (_M_IoT._t_IllegalIngredientException, _M_IoT._t_IllegalIngredientQuantityException))
 
     _M_IoT.CoffeeMakerOperation = CoffeeMakerOperation
     del CoffeeMakerOperation

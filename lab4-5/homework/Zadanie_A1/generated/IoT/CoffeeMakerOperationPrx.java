@@ -18,17 +18,23 @@ package IoT;
 public interface CoffeeMakerOperationPrx extends IoTDeviceOperationPrx
 {
     default Beverage makeBeverage(BeverageType beverageType)
-        throws UnsupportedBeverageTypeException
+        throws NotEnoughIngredientsException,
+               UnsupportedBeverageTypeException
     {
         return makeBeverage(beverageType, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
     default Beverage makeBeverage(BeverageType beverageType, java.util.Map<String, String> context)
-        throws UnsupportedBeverageTypeException
+        throws NotEnoughIngredientsException,
+               UnsupportedBeverageTypeException
     {
         try
         {
             return _iceI_makeBeverageAsync(beverageType, context, true).waitForResponseOrUserEx();
+        }
+        catch(NotEnoughIngredientsException ex)
+        {
+            throw ex;
         }
         catch(UnsupportedBeverageTypeException ex)
         {
@@ -63,10 +69,9 @@ public interface CoffeeMakerOperationPrx extends IoTDeviceOperationPrx
         f.invoke(true, context, null, ostr -> {
                      BeverageType.ice_write(ostr, iceP_beverageType);
                  }, istr -> {
-                     final com.zeroc.IceInternal.Holder<Beverage> ret = new com.zeroc.IceInternal.Holder<>();
-                     istr.readValue(v -> ret.value = v, Beverage.class);
-                     istr.readPendingValues();
-                     return ret.value;
+                     Beverage ret;
+                     ret = Beverage.ice_read(istr);
+                     return ret;
                  });
         return f;
     }
@@ -74,7 +79,72 @@ public interface CoffeeMakerOperationPrx extends IoTDeviceOperationPrx
     /** @hidden */
     static final Class<?>[] _iceE_makeBeverage =
     {
+        NotEnoughIngredientsException.class,
         UnsupportedBeverageTypeException.class
+    };
+
+    default void increaseIngredientQuantity(Ingredient ingredient, short quantity)
+        throws IllegalIngredientException,
+               IllegalIngredientQuantityException
+    {
+        increaseIngredientQuantity(ingredient, quantity, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void increaseIngredientQuantity(Ingredient ingredient, short quantity, java.util.Map<String, String> context)
+        throws IllegalIngredientException,
+               IllegalIngredientQuantityException
+    {
+        try
+        {
+            _iceI_increaseIngredientQuantityAsync(ingredient, quantity, context, true).waitForResponseOrUserEx();
+        }
+        catch(IllegalIngredientException ex)
+        {
+            throw ex;
+        }
+        catch(IllegalIngredientQuantityException ex)
+        {
+            throw ex;
+        }
+        catch(com.zeroc.Ice.UserException ex)
+        {
+            throw new com.zeroc.Ice.UnknownUserException(ex.ice_id(), ex);
+        }
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> increaseIngredientQuantityAsync(Ingredient ingredient, short quantity)
+    {
+        return _iceI_increaseIngredientQuantityAsync(ingredient, quantity, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> increaseIngredientQuantityAsync(Ingredient ingredient, short quantity, java.util.Map<String, String> context)
+    {
+        return _iceI_increaseIngredientQuantityAsync(ingredient, quantity, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_ingredient -
+     * @param iceP_quantity -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_increaseIngredientQuantityAsync(Ingredient iceP_ingredient, short iceP_quantity, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "increaseIngredientQuantity", null, sync, _iceE_increaseIngredientQuantity);
+        f.invoke(true, context, null, ostr -> {
+                     Ingredient.ice_write(ostr, iceP_ingredient);
+                     ostr.writeShort(iceP_quantity);
+                 }, null);
+        return f;
+    }
+
+    /** @hidden */
+    static final Class<?>[] _iceE_increaseIngredientQuantity =
+    {
+        IllegalIngredientException.class,
+        IllegalIngredientQuantityException.class
     };
 
     /**

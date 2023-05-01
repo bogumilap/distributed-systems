@@ -19,9 +19,12 @@ public interface IoTDeviceOperation extends com.zeroc.Ice.Object
 {
     java.util.Map<java.lang.String, java.lang.String> getInfo(com.zeroc.Ice.Current current);
 
+    void changeName(String name, com.zeroc.Ice.Current current);
+
     void changeSettings(java.util.Map<java.lang.String, java.lang.String> settings, com.zeroc.Ice.Current current)
-        throws UnknownSettingException,
-               ValueOutOfRangeException;
+        throws UnrecognisedSettingException;
+
+    void returnToFactorySettings(com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
@@ -71,12 +74,30 @@ public interface IoTDeviceOperation extends com.zeroc.Ice.Object
      * @param inS -
      * @param current -
      * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_changeName(IoTDeviceOperation obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_name;
+        iceP_name = istr.readString();
+        inS.endReadParams();
+        obj.changeName(iceP_name, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
      * @throws com.zeroc.Ice.UserException -
     **/
     static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_changeSettings(IoTDeviceOperation obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
         throws com.zeroc.Ice.UserException
     {
-        com.zeroc.Ice.Object._iceCheckMode(com.zeroc.Ice.OperationMode.Idempotent, current.mode);
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         com.zeroc.Ice.InputStream istr = inS.startReadParams();
         java.util.Map<java.lang.String, java.lang.String> iceP_settings;
         iceP_settings = SettingsHelper.read(istr);
@@ -85,15 +106,32 @@ public interface IoTDeviceOperation extends com.zeroc.Ice.Object
         return inS.setResult(inS.writeEmptyParams());
     }
 
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_returnToFactorySettings(IoTDeviceOperation obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        inS.readEmptyParams();
+        obj.returnToFactorySettings(current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
     /** @hidden */
     final static String[] _iceOps =
     {
+        "changeName",
         "changeSettings",
         "getInfo",
         "ice_id",
         "ice_ids",
         "ice_isA",
-        "ice_ping"
+        "ice_ping",
+        "returnToFactorySettings"
     };
 
     /** @hidden */
@@ -111,27 +149,35 @@ public interface IoTDeviceOperation extends com.zeroc.Ice.Object
         {
             case 0:
             {
-                return _iceD_changeSettings(this, in, current);
+                return _iceD_changeName(this, in, current);
             }
             case 1:
             {
-                return _iceD_getInfo(this, in, current);
+                return _iceD_changeSettings(this, in, current);
             }
             case 2:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return _iceD_getInfo(this, in, current);
             }
             case 3:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 4:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 5:
             {
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+            }
+            case 6:
+            {
                 return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+            }
+            case 7:
+            {
+                return _iceD_returnToFactorySettings(this, in, current);
             }
         }
 

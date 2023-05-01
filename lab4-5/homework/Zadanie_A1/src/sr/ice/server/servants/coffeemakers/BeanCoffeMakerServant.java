@@ -28,25 +28,45 @@ public class BeanCoffeMakerServant implements CoffeeMakerOperation {
 
     private void createInstance() {
         if (instance == null) {
+            System.out.println("Creating instance...");
             instance = new BeanCoffeeMaker(this.name, this.brand, this.model);
         }
     }
 
     @Override
-    public Beverage makeBeverage(BeverageType beverageType, Current current) throws UnsupportedBeverageTypeException {
+    public Beverage makeBeverage(BeverageType beverageType, Current current) throws UnsupportedBeverageTypeException, NotEnoughIngredientsException {
         createInstance();
         return instance.makeBeverage(beverageType, current);
     }
 
     @Override
+    public void increaseIngredientQuantity(Ingredient ingredient, short quantity, Current current) throws IllegalIngredientException, IllegalIngredientQuantityException {
+        createInstance();
+        instance.increaseIngredientQuantity(ingredient, quantity, current);
+    }
+
+    @Override
     public Map<String, String> getInfo(Current current) {
         createInstance();
+        System.out.println(instance.getInfo(current));
         return instance.getInfo(current);
     }
 
     @Override
-    public void changeSettings(Map<String, String> settings, Current current) throws UnknownSettingException, ValueOutOfRangeException {
+    public void changeName(String name, Current current) {
+        createInstance();
+        instance.changeName(name, current);
+    }
+
+    @Override
+    public void changeSettings(Map<String, String> settings, Current current) throws UnrecognisedSettingException {
         createInstance();
         instance.changeSettings(settings, current);
+    }
+
+    @Override
+    public void returnToFactorySettings(Current current) {
+        createInstance();
+        instance.returnToFactorySettings(current);
     }
 }

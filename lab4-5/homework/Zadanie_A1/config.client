@@ -1,43 +1,7 @@
 BeanCoffeeMaker=coffeemakers/BeanCoffeeMaker:tcp -h localhost -p 10000:udp -h localhost -p 10000
-capsuleCoffeeMaker=coffeemakers/capsuleCoffeeMaker:tcp -h localhost -p 10000:udp -h localhost -p 10000
-# END DEVICE DEFINITIONS
-#
-# Warn about connection exceptions.
-#
+CapsuleCoffeeMaker=coffeemakers/CapsuleCoffeeMaker:tcp -h localhost -p 10000:udp -h localhost -p 10000
+
 Ice.Warn.Connections=1
 
 Ice.ACM.Timeout=10
 
-#
-# Network Tracing
-#
-# 0 = no network tracing
-# 1 = trace connection establishment and closure
-# 2 = like 1, but more detailed
-# 3 = like 2, but also trace data transfer
-#
-#Ice.Trace.Network=2
-
-#
-# Protocol Tracing
-#
-# 0 = no protocol tracing
-# 1 = trace protocol messages
-#
-#Ice.Trace.Protocol=1
-
-#
-# Security Tracing
-#
-# 0 = no security tracing
-# 1 = trace messages
-#
-#IceSSL.Trace.Security=1
-
-#
-# SSL Configuration
-#
-#Ice.Plugin.IceSSL=IceSSL.PluginFactory
-#IceSSL.DefaultDir=certs
-#IceSSL.Keystore=client.jks
-#IceSSL.Password=password

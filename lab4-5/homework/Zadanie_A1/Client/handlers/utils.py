@@ -1,91 +1,36 @@
-from IoT import *
-from time import sleep
-
-
-def get_device_data(handler):
-    # test_connection(handler.proxy)
+def get_info(handler):
     data = handler.proxy.getInfo()
     print(handler.name + " data:")
     for name, val in data.items():
-        print("- ", name, ": ", val, sep="")
-    print()
+        print(f"{name}: {val}")
+
+
+def change_name(handler):
+    new_name = input("enter new name: ")
+    handler.proxy.changeName(new_name)
 
 
 def change_settings(handler):
-    print("Enter desired changes in format settingName = newValue or "
-          "empty input to finish.")
-    print("Available settings: ", handler.settings)
-    changes = dict()
+    print(f"available settings: {handler.settings}")
+    print("type <setting> <new_value> to change setting or enter empty input to leave this mode")
+    new_settings = {}
     while True:
-        line = input("=======> ")
+        line = input("> ")
         if not line:
             break
-
         try:
-            name, value = line.split("=", 1)
+            setting, new_value = line.split(" ", 1)
+            setting = setting.strip()
+            new_value = new_value.strip()
+            new_settings[setting] = new_value
         except ValueError:
-            print("Error: something went wrong with parsing provided value")
-            return
-        name = name.strip()
-        value = value.strip()
-        changes[name] = value
-
+            print("ERROR: wrong input format")
     try:
-        # test_connection(handler.proxy)
-        handler.proxy.changeSettings(changes)
-    except (UnknownSettingException) as e:
-        print("Error:", e.reason)
+        handler.proxy.changeSettings(new_settings)
+    except UnrecognisedSettingException as e:
+        print(f"ERROR: {e.reason}")
     print()
 
 
-def test_connection(handler):
-    problem = True
-    try:
-        # will return None if there is no problem
-        problem = handler.proxy.ice_ping()
-    except (Ice.ConnectionRefusedException, Ice.InvocationTimeoutException):
-        pass  # problem is True by default
-
-    if problem:
-        print("There is some problem with connection, please  wait "
-              "when we solve it.")
-        reconnect(handler)
-
-
-def _get_sleep_time(failed_requests):
-    if failed_requests <= 2:
-        return 1
-    elif failed_requests <= 6:
-        return 0.5
-    elif failed_requests <= 13:
-        return 0.25
-    else:
-        return 0.125
-
-
-def reconnect(handler):
-    failed_requests = 1
-    while failed_requests < 29:
-        print(".", end="")
-        problem = True
-        try:
-            # will return None if there is no problem
-            problem = handler.proxy.ice_ping()
-        except (Ice.ConnectionRefusedException,
-                Ice.InvocationTimeoutException):
-            pass  # problem is True by default
-
-        if problem:
-            failed_requests += 1
-            sleep_time = _get_sleep_time(failed_requests)
-            sleep(sleep_time)
-        else:
-            print()
-            print("Problem solved, continuing previous work.")
-            print()
-            return
-
-    print()
-    print("Major problem with network, abandoning work, please try later. "
-          "Sorry for the inconvenience.")
-    exit(1)
+def return_to_factory_settings(handler):
+    handler.proxy.returnToFactorySettings()

@@ -1,5 +1,5 @@
 from IoT import *
-from handlers.utils import get_device_data, change_settings, test_connection
+from handlers.utils import get_info, change_settings, change_name, return_to_factory_settings
 
 
 class CapsuleCoffeeMakerHandler:
@@ -7,22 +7,31 @@ class CapsuleCoffeeMakerHandler:
         self.name = name
         self._proxy = None
         self.communicator = communicator
-        self.device_type = "coffee makers"
-        self.allowed_actions = {"getDeviceData",
+        self.allowed_actions = {"getInfo",
+                                "changeName",
                                 "changeSettings",
-                                "makeCoffee"}
+                                "returnToFactorySettings",
+                                "makeBeverage",
+                                "increaseIngredientQuantity"}
 
-        self.settings = ["temperature", "volume"]
+        self.settings = ["beveragesVolume"]
 
-        self.coffee_types = ["ESPRESSO",
-                             "AMERICANO",
-                             "CAPPUCCINO",
-                             "LATTE"]
-
-        self.coffee_types_map = {
-            "ESPRESSO": BeverageType.ESPRESSO,
+        self.beverages = {
             "AMERICANO": BeverageType.AMERICANO,
-            "CAPPUCCINO": BeverageType.CAPPUCCINO}
+            "CAPPUCCINO": BeverageType.CAPPUCCINO,
+            "ESPRESSO": BeverageType.ESPRESSO,
+            "CARAMELMACCHIATO": BeverageType.CARAMELMACCHIATO,
+            "TEA": BeverageType.TEA,
+            "HOTCHOCOLATE": BeverageType.HOTCHOCOLATE,
+            "HOTMILK": BeverageType.HOTMILK
+        }
+        self.ingredients = {
+            "COFFEECAPSULES": Ingredient.COFFEECAPSULES,
+            "CARAMELMACCHIATOCAPSULES": Ingredient.CARAMELMACCHIATOCAPSULES,
+            "TEACAPSULES": Ingredient.TEACAPSULES,
+            "CHOCOLATECAPSULES": Ingredient.CHOCOLATECAPSULES,
+            "MILK": Ingredient.MILK
+        }
 
     @property
     def proxy(self):
@@ -33,40 +42,41 @@ class CapsuleCoffeeMakerHandler:
         return self._proxy
 
     def print_allowed_actions(self):
-        print()
-        print("Allowed actions:")
-        print("- getDeviceData")
-        print("- changeSettings")
-        print("- makeCoffee", end="")
+        new_line = "\n"
+        print(f"Allowed actions: {new_line}{new_line.join([f'  - {action}' for action in self.allowed_actions])}")
 
     def handle_action(self, action):
-        if action == "getDeviceData":
-            get_device_data(self)
-        elif action == "changeSettings":
-            change_settings(self)
-        elif action == "makeCoffee":
-            print("Enter coffee type, one of:", self.coffee_types,
-                  "(can be in lowercase).")
-            coffee_type = input("=======> ")
+        match action:
+            case "getInfo":
+                get_info(self)
+            case "changeName":
+                change_name(self)
+            case "changeSettings":
+                change_settings(self)
+            case "returnToFactorySettings":
+                return_to_factory_settings(self)
+            case "makeBeverage":
+                print(f"Available beverages: {', '.join([beverage for beverage in self.beverages.keys()])}")
+                beverage_name = input("beverage: ")
+                if not (beverage_type := self.beverages.get(beverage_name)):
+                    print("ERROR: Beverage name not recognised.")
+                    return
+                try:
+                    beverage = self.proxy.makeBeverage(beverage_type)
+                except (UnsupportedBeverageTypeException, NotEnoughIngredientsException) as e:
+                    print("ERROR:", e.reason)
+                    print()
+                    return
+                print(f"Prepared beverage: {beverage.beverageType} ({beverage.volume} ml).")
+            case "increaseIngredientQuantity":
+                print(f"Stored ingredients: {', '.join([ingredient for ingredient in self.ingredients.keys()])}")
+                ingredient = input("ingredient: ")
+                quantity = input("quantity: ")
+                try:
+                    self.proxy.increaseIngredientQuantity(self.ingredients.get(ingredient), int(quantity))
+                except (IllegalIngredientException, IllegalIngredientQuantityException) as e:
+                    print(f"ERROR: {e.reason}")
+                    return
+            case _:
+                print("ERROR: Action not recognised")
 
-            try:
-                coffee_type = self.coffee_types_map[coffee_type.upper()]
-            except KeyError:
-                print("Error: provided coffee type was not recognized")
-                return
-
-            try:
-                test_connection(self)
-                coffee = self.proxy.makeCoffee(coffee_type)
-            except UnsupportedBeverageTypeException as e:
-                print("Error:", e.reason)
-                print()
-                return
-            except Ice.ObjectNotExistException:
-                print("Error: servant object appropriate for this action was "
-                      "not found on the server.")
-                return
-
-            print("Coffee ready: ", coffee.coffeeType.name.lower(), ", ",
-                  "temperature: ", coffee.temperature, " deg. C, ",
-                  "volume: ", coffee.volume, " ml", sep="")

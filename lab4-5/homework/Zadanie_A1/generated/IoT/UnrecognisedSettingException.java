@@ -15,25 +15,25 @@
 
 package IoT;
 
-public class UnknownSettingException extends com.zeroc.Ice.UserException
+public class UnrecognisedSettingException extends com.zeroc.Ice.UserException
 {
-    public UnknownSettingException()
+    public UnrecognisedSettingException()
     {
         this.reason = "";
     }
 
-    public UnknownSettingException(Throwable cause)
+    public UnrecognisedSettingException(Throwable cause)
     {
         super(cause);
         this.reason = "";
     }
 
-    public UnknownSettingException(String reason)
+    public UnrecognisedSettingException(String reason)
     {
         this.reason = reason;
     }
 
-    public UnknownSettingException(String reason, Throwable cause)
+    public UnrecognisedSettingException(String reason, Throwable cause)
     {
         super(cause);
         this.reason = reason;
@@ -41,7 +41,7 @@ public class UnknownSettingException extends com.zeroc.Ice.UserException
 
     public String ice_id()
     {
-        return "::IoT::UnknownSettingException";
+        return "::IoT::UnrecognisedSettingException";
     }
 
     public String reason;
@@ -50,7 +50,7 @@ public class UnknownSettingException extends com.zeroc.Ice.UserException
     @Override
     protected void _writeImpl(com.zeroc.Ice.OutputStream ostr_)
     {
-        ostr_.startSlice("::IoT::UnknownSettingException", -1, true);
+        ostr_.startSlice("::IoT::UnrecognisedSettingException", -1, true);
         ostr_.writeString(reason);
         ostr_.endSlice();
     }
@@ -65,5 +65,5 @@ public class UnknownSettingException extends com.zeroc.Ice.UserException
     }
 
     /** @hidden */
-    public static final long serialVersionUID = 23767251L;
+    public static final long serialVersionUID = 1828671337L;
 }

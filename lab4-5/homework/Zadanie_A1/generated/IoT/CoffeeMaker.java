@@ -22,16 +22,28 @@ public class CoffeeMaker extends IoTDevice
         super();
     }
 
-    public CoffeeMaker(String name, String brand, String model, String type, short volume, BeverageType[] beverageTypes)
+    public CoffeeMaker(String name, String brand, String model, String type, BeverageType[] beverageTypes, java.util.Map<Ingredient, java.lang.Short> ingredientsQuantity, java.util.Map<Ingredient, java.lang.Short> maxIngredientsQuantity, java.util.Map<BeverageType, java.util.Map<Ingredient, java.lang.Short>> requiredIngredientsQuantity, short beveragesVolume, short beveragesVolumeInitial)
     {
         super(name, brand, model, type);
-        this.volume = volume;
         this.beverageTypes = beverageTypes;
+        this.ingredientsQuantity = ingredientsQuantity;
+        this.maxIngredientsQuantity = maxIngredientsQuantity;
+        this.requiredIngredientsQuantity = requiredIngredientsQuantity;
+        this.beveragesVolume = beveragesVolume;
+        this.beveragesVolumeInitial = beveragesVolumeInitial;
     }
 
-    public short volume;
-
     public BeverageType[] beverageTypes;
+
+    public java.util.Map<Ingredient, java.lang.Short> ingredientsQuantity;
+
+    public java.util.Map<Ingredient, java.lang.Short> maxIngredientsQuantity;
+
+    public java.util.Map<BeverageType, java.util.Map<Ingredient, java.lang.Short>> requiredIngredientsQuantity;
+
+    public short beveragesVolume;
+
+    public short beveragesVolumeInitial;
 
     public CoffeeMaker clone()
     {
@@ -50,15 +62,19 @@ public class CoffeeMaker extends IoTDevice
     }
 
     /** @hidden */
-    public static final long serialVersionUID = 1922797825L;
+    public static final long serialVersionUID = 1293070663L;
 
     /** @hidden */
     @Override
     public void _iceWriteImpl(com.zeroc.Ice.OutputStream ostr_)
     {
         ostr_.startSlice(ice_staticId(), -1, false);
-        ostr_.writeShort(volume);
         AvailableBeverageTypesHelper.write(ostr_, beverageTypes);
+        IngredientsQuantityHelper.write(ostr_, ingredientsQuantity);
+        IngredientsQuantityHelper.write(ostr_, maxIngredientsQuantity);
+        RequiredIngredientsQuantityHelper.write(ostr_, requiredIngredientsQuantity);
+        ostr_.writeShort(beveragesVolume);
+        ostr_.writeShort(beveragesVolumeInitial);
         ostr_.endSlice();
         super._iceWriteImpl(ostr_);
     }
@@ -68,8 +84,12 @@ public class CoffeeMaker extends IoTDevice
     public void _iceReadImpl(com.zeroc.Ice.InputStream istr_)
     {
         istr_.startSlice();
-        volume = istr_.readShort();
         beverageTypes = AvailableBeverageTypesHelper.read(istr_);
+        ingredientsQuantity = IngredientsQuantityHelper.read(istr_);
+        maxIngredientsQuantity = IngredientsQuantityHelper.read(istr_);
+        requiredIngredientsQuantity = RequiredIngredientsQuantityHelper.read(istr_);
+        beveragesVolume = istr_.readShort();
+        beveragesVolumeInitial = istr_.readShort();
         istr_.endSlice();
         super._iceReadImpl(istr_);
     }
