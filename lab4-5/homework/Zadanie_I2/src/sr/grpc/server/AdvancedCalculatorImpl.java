@@ -11,18 +11,21 @@ public class AdvancedCalculatorImpl extends AdvancedCalculatorImplBase
 {
 	@Override
 	public void complexOperation(sr.grpc.gen.ComplexArithmeticOpArguments request,
-			io.grpc.stub.StreamObserver<sr.grpc.gen.ComplexArithmeticOpResult> responseObserver) 
-	{
+			io.grpc.stub.StreamObserver<sr.grpc.gen.ComplexArithmeticOpResult> responseObserver) {
 		System.out.println("multipleArgumentsRequest (" + request.getOptypeValue() + ", #" + request.getArgsCount() +")");
 		
-		if(request.getArgsCount() == 0) {
+		if (request.getArgsCount() == 0) {
 			System.out.println("No agruments");
 		}
-		
-		double res = getResult(request.getOptype().name(), request.getArgsList());
-		
-		ComplexArithmeticOpResult result = ComplexArithmeticOpResult.newBuilder().setRes(res).build();
-		responseObserver.onNext(result);
+
+		try {
+			double res = getResult(request.getOptype().name(), request.getArgsList());
+
+			ComplexArithmeticOpResult result = ComplexArithmeticOpResult.newBuilder().setRes(res).build();
+			responseObserver.onNext(result);
+		} catch (IllegalArgumentException e) {
+			System.out.println("ERROR: " + e.getMessage());
+		}
 		responseObserver.onCompleted();
 	}
 
@@ -52,8 +55,7 @@ public class AdvancedCalculatorImpl extends AdvancedCalculatorImplBase
 					}
 				}
 			default:
-				System.out.println("ERROR: Unrecognised operation.");
-				break;
+				throw new IllegalArgumentException("operation " + operation + " was not recognised");
 		}
 		return res;
 	}
@@ -82,9 +84,13 @@ public class AdvancedCalculatorImpl extends AdvancedCalculatorImplBase
 
 	@Override
 	public void bracketedComplexOperation(BracketedArithmeticOpArguments request, StreamObserver<ComplexArithmeticOpResult> responseObserver) {
-		double res = getBracketedResult(request);
-		ComplexArithmeticOpResult result = ComplexArithmeticOpResult.newBuilder().setRes(res).build();
-		responseObserver.onNext(result);
+		try {
+			double res = getBracketedResult(request);
+			ComplexArithmeticOpResult result = ComplexArithmeticOpResult.newBuilder().setRes(res).build();
+			responseObserver.onNext(result);
+		} catch (IllegalArgumentException e) {
+			System.out.println("ERROR: " + e.getMessage());
+		}
 		responseObserver.onCompleted();
 	}
 }

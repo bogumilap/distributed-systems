@@ -9,7 +9,7 @@
       <change beforePath="$PROJECT_DIR$/../../gRPC/person2.ser" beforeDir="false" afterPath="$PROJECT_DIR$/../../gRPC/person2.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Zadanie_A1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Zadanie_A1/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/description.md" beforeDir="false" afterPath="$PROJECT_DIR$/description.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sr/grpc/server/AdvancedCalculatorImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sr/grpc/server/AdvancedCalculatorImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +91,7 @@
       <option name="presentableId" value="Default" />
       <updated>1683059500300</updated>
       <workItem from="1683059502010" duration="2136000" />
-      <workItem from="1683127839799" duration="13370000" />
+      <workItem from="1683127839799" duration="16112000" />
     </task>
     <servers />
   </component>
