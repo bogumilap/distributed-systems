@@ -5,20 +5,13 @@ from handlers.utils import get_info, change_name, change_settings, return_to_fac
 class PTZCameraHandler:
     def __init__(self, name, communicator):
         self.name = name
-        self._proxy = None
+        self.proxy = CameraOperationPrx.checkedCast(communicator.propertyToProxy(name))
         self.communicator = communicator
         self.allowed_actions = {"getInfo",
                                 "changeName",
                                 "changeSettings",
                                 "returnToFactorySettings"}
         self.settings = ["pan", "tilt", "zoom"]
-
-    @property
-    def proxy(self):
-        if not self._proxy:
-            proxy = self.communicator.propertyToProxy(self.name)
-            self._proxy = CameraOperationPrx.checkedCast(proxy)
-        return self._proxy
 
     def print_allowed_actions(self):
         new_line = "\n"

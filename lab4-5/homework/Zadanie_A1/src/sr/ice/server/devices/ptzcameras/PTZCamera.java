@@ -49,6 +49,7 @@ public class PTZCamera extends Camera implements CameraOperation {
     @Override
     public void changeName(String name, Current current) {
         lock.lock();
+        System.out.println("Changing name from " + this.name + " to " + name);
         this.name = name;
         lock.unlock();
     }
@@ -93,6 +94,7 @@ public class PTZCamera extends Camera implements CameraOperation {
     public void returnToFactorySettings(Current current) {
         lock.lock();
 
+        System.out.println("Resetting settings");
         pan = 0;
         tilt = 0;
         zoom = 0;

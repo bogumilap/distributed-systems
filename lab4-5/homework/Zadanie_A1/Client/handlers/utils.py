@@ -11,6 +11,7 @@ def get_info(handler):
 def change_name(handler):
     new_name = input("enter new name: ")
     handler.proxy.changeName(new_name)
+    print(f"Name changed to {new_name}")
 
 
 def change_settings(handler):
@@ -32,8 +33,9 @@ def change_settings(handler):
         handler.proxy.changeSettings(new_settings)
     except (UnrecognisedSettingException, IllegalSettingValueException) as e:
         print(f"ERROR: {e.reason}")
-    print()
+    print("Settings saved")
 
 
 def return_to_factory_settings(handler):
     handler.proxy.returnToFactorySettings()
+    print("Returned to factory settings")

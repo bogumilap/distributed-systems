@@ -5,7 +5,7 @@ from handlers.utils import get_info, change_settings, change_name, return_to_fac
 class BeanCoffeeMakerHandler:
     def __init__(self, name, communicator):
         self.name = name
-        self._proxy = None
+        self.proxy = CoffeeMakerOperationPrx.checkedCast(communicator.propertyToProxy(name))
         self.communicator = communicator
         self.allowed_actions = {"getInfo",
                                 "changeName",
@@ -18,13 +18,6 @@ class BeanCoffeeMakerHandler:
             "ESPRESSO": BeverageType.ESPRESSO,
             "AMERICANO": BeverageType.AMERICANO}
         self.ingredients = {"COFFEEBEANS": Ingredient.COFFEEBEANS}
-
-    @property
-    def proxy(self):
-        if not self._proxy:
-            proxy = self.communicator.propertyToProxy(self.name)
-            self._proxy = CoffeeMakerOperationPrx.checkedCast(proxy)
-        return self._proxy
 
     def print_allowed_actions(self):
         new_line = "\n"
@@ -44,15 +37,14 @@ class BeanCoffeeMakerHandler:
                 print(f"Available beverages: {', '.join([beverage for beverage in self.beverages.keys()])}")
                 beverage_name = input("beverage: ")
                 if not (beverage_type := self.beverages.get(beverage_name)):
-                    print("ERROR: Beverage name not recognised.")
+                    print("ERROR: Beverage name not recognised")
                     return
                 try:
                     beverage = self.proxy.makeBeverage(beverage_type)
                 except (UnsupportedBeverageTypeException, NotEnoughIngredientsException) as e:
                     print("ERROR:", e.reason)
-                    print()
                     return
-                print(f"Prepared beverage: {beverage.beverageType} ({beverage.volume} ml).")
+                print(f"Prepared {beverage.beverageType}.")
             case "increaseIngredientQuantity":
                 print(f"Stored ingredients: {', '.join([ingredient for ingredient in self.ingredients.keys()])}")
                 ingredient = input("ingredient: ")
@@ -62,5 +54,6 @@ class BeanCoffeeMakerHandler:
                 except (IllegalIngredientException, IllegalIngredientQuantityException) as e:
                     print(f"ERROR: {e.reason}")
                     return
+                print(f"Successfully set quantity of {ingredient} to {quantity} units")
             case _:
                 print("ERROR: Action not recognised")

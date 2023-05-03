@@ -56,6 +56,8 @@ public class BeanCoffeeMaker extends CoffeeMaker implements CoffeeMakerOperation
     @Override
     public Beverage makeBeverage(BeverageType beverageType, Current current) throws UnsupportedBeverageTypeException, NotEnoughIngredientsException {
         lock.lock();
+        System.out.println("Coffeemaker " + name + " received request for " + beverageType);
+
         if (! beverageTypes.contains(beverageType)) {
             throw new UnsupportedBeverageTypeException(type + " cannot produce " + beverageType.name());
         }
@@ -75,6 +77,8 @@ public class BeanCoffeeMaker extends CoffeeMaker implements CoffeeMakerOperation
             short availableIngredientQuantity = ingredientsQuantity.get(requiredIngredient.getKey());
             ingredientsQuantity.put(requiredIngredient.getKey(), (short) (availableIngredientQuantity - requiredIngredientQuantity));
         }
+
+        System.out.println(beverageType + " prepared");
         lock.unlock();
         return beverage;
     }
@@ -90,6 +94,7 @@ public class BeanCoffeeMaker extends CoffeeMaker implements CoffeeMakerOperation
                     + type + " can store up to " + maxIngredientsQuantity.get(ingredient) + " units of it");
         }
         ingredientsQuantity.put(ingredient, quantity);
+        System.out.println("Quantity of " + ingredient + " increased successfully.");
         lock.unlock();
     }
 
@@ -111,6 +116,7 @@ public class BeanCoffeeMaker extends CoffeeMaker implements CoffeeMakerOperation
     @Override
     public void changeName(String name, Current current) {
         lock.lock();
+        System.out.println("Changing name from " + this.name + " to " + name);
         this.name = name;
         lock.unlock();
     }
@@ -135,6 +141,7 @@ public class BeanCoffeeMaker extends CoffeeMaker implements CoffeeMakerOperation
     public void returnToFactorySettings(Current current) {
         lock.lock();
 
+        System.out.println("Resetting settings");
         beveragesVolume = beveragesVolumeInitial;
 
         lock.unlock();
