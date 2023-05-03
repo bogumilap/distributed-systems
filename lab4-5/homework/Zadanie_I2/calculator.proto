@@ -1,4 +1,3 @@
-
 syntax = "proto3";
 
 option java_multiple_files = true;
@@ -36,8 +35,26 @@ message ComplexArithmeticOpArguments {
 message ComplexArithmeticOpResult {
   double res = 1;
 }
-     
+
+enum TwoArgOperationType {
+  MULTIPLY = 0;
+  DIVIDE = 1;
+}
+
+message BracketedArithmeticOpArguments {
+  TwoArgOperationType optype = 1;
+  oneof arg1 {
+    ComplexArithmeticOpArguments complexArg1 = 2;
+    BracketedArithmeticOpArguments bracketedArg1 = 3;
+  };
+  oneof arg2 {
+    ComplexArithmeticOpArguments complexArg2 = 4;
+    BracketedArithmeticOpArguments bracketedArg2 = 5;
+  };
+}
+
 service AdvancedCalculator {
   rpc ComplexOperation (ComplexArithmeticOpArguments) returns (ComplexArithmeticOpResult) {}
+  rpc BracketedComplexOperation (BracketedArithmeticOpArguments) returns (ComplexArithmeticOpResult) {}
 }
 

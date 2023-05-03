@@ -8,7 +8,25 @@
       <change beforePath="$PROJECT_DIR$/../../gRPC/gen/sr/proto/AddressBookProtos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gRPC/gen/sr/proto/AddressBookProtos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../gRPC/person2.ser" beforeDir="false" afterPath="$PROJECT_DIR$/../../gRPC/person2.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Zadanie_A1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Zadanie_A1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zadanie_A1/A1 - treść.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/calculator.proto" beforeDir="false" afterPath="$PROJECT_DIR$/calculator.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/description.md" beforeDir="false" afterPath="$PROJECT_DIR$/description.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/AdvancedCalculatorGrpc.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ArithmeticOpArguments.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ArithmeticOpArgumentsOrBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ArithmeticOpResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ArithmeticOpResultOrBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/CalculatorGrpc.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/CalculatorProto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ComplexArithmeticOpArguments.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ComplexArithmeticOpArgumentsOrBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ComplexArithmeticOpResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ComplexArithmeticOpResultOrBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/OperationType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sr/grpc/server/AdvancedCalculatorImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sr/grpc/server/AdvancedCalculatorImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sr/grpc/server/grpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sr/grpc/server/grpcServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sr/grpc/server/grpcServer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sr/grpc/server/grpcServer$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sr/grpc/server/grpcServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sr/grpc/server/grpcServer.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +35,13 @@
   </component>
   <component name="CodeStyleSettingsInfer">
     <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
@@ -35,19 +60,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/bogum/Documents/distributed-systems/lab4-5/homework/Zadanie_I2",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/bogum/Documents/distributed-systems/lab4-5/homework/Zadanie_I2&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\bogum\Documents\distributed-systems\lab4-5\homework\Zadanie_I2" />
@@ -82,7 +107,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1683059500300</updated>
-      <workItem from="1683059502010" duration="1898000" />
+      <workItem from="1683059502010" duration="2136000" />
+      <workItem from="1683127839799" duration="11820000" />
     </task>
     <servers />
   </component>

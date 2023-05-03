@@ -11,7 +11,6 @@ import java.net.SocketAddress;
 import java.net.UnknownHostException;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
-//import io.grpc.netty.shaded.io.grpc.netty.NettyServerBuilder;
 
 
 public class grpcServer 
@@ -33,7 +32,7 @@ public class grpcServer
 		//You will want to employ flow-control so that the queue doesn't blow up your memory. You can cast StreamObserver to CallStreamObserver to get flow-control API
 		server = /*ServerBuilder*/NettyServerBuilder.forAddress(socket).executor(Executors.newFixedThreadPool(16))
 				.addService(new CalculatorImpl())
-				//.addService(new AdvancedCalculatorImpl())
+				.addService(new AdvancedCalculatorImpl())
 				.addService(ProtoReflectionService.newInstance())
 				.build()
 				.start();

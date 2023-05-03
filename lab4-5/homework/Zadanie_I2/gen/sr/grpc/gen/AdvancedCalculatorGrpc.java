@@ -46,6 +46,37 @@ public final class AdvancedCalculatorGrpc {
     return getComplexOperationMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sr.grpc.gen.BracketedArithmeticOpArguments,
+      sr.grpc.gen.ComplexArithmeticOpResult> getBracketedComplexOperationMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "BracketedComplexOperation",
+      requestType = sr.grpc.gen.BracketedArithmeticOpArguments.class,
+      responseType = sr.grpc.gen.ComplexArithmeticOpResult.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sr.grpc.gen.BracketedArithmeticOpArguments,
+      sr.grpc.gen.ComplexArithmeticOpResult> getBracketedComplexOperationMethod() {
+    io.grpc.MethodDescriptor<sr.grpc.gen.BracketedArithmeticOpArguments, sr.grpc.gen.ComplexArithmeticOpResult> getBracketedComplexOperationMethod;
+    if ((getBracketedComplexOperationMethod = AdvancedCalculatorGrpc.getBracketedComplexOperationMethod) == null) {
+      synchronized (AdvancedCalculatorGrpc.class) {
+        if ((getBracketedComplexOperationMethod = AdvancedCalculatorGrpc.getBracketedComplexOperationMethod) == null) {
+          AdvancedCalculatorGrpc.getBracketedComplexOperationMethod = getBracketedComplexOperationMethod =
+              io.grpc.MethodDescriptor.<sr.grpc.gen.BracketedArithmeticOpArguments, sr.grpc.gen.ComplexArithmeticOpResult>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "BracketedComplexOperation"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sr.grpc.gen.BracketedArithmeticOpArguments.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sr.grpc.gen.ComplexArithmeticOpResult.getDefaultInstance()))
+              .setSchemaDescriptor(new AdvancedCalculatorMethodDescriptorSupplier("BracketedComplexOperation"))
+              .build();
+        }
+      }
+    }
+    return getBracketedComplexOperationMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -100,6 +131,13 @@ public final class AdvancedCalculatorGrpc {
         io.grpc.stub.StreamObserver<sr.grpc.gen.ComplexArithmeticOpResult> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getComplexOperationMethod(), responseObserver);
     }
+
+    /**
+     */
+    default void bracketedComplexOperation(sr.grpc.gen.BracketedArithmeticOpArguments request,
+        io.grpc.stub.StreamObserver<sr.grpc.gen.ComplexArithmeticOpResult> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getBracketedComplexOperationMethod(), responseObserver);
+    }
   }
 
   /**
@@ -136,6 +174,14 @@ public final class AdvancedCalculatorGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getComplexOperationMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void bracketedComplexOperation(sr.grpc.gen.BracketedArithmeticOpArguments request,
+        io.grpc.stub.StreamObserver<sr.grpc.gen.ComplexArithmeticOpResult> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getBracketedComplexOperationMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -159,6 +205,13 @@ public final class AdvancedCalculatorGrpc {
     public sr.grpc.gen.ComplexArithmeticOpResult complexOperation(sr.grpc.gen.ComplexArithmeticOpArguments request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getComplexOperationMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sr.grpc.gen.ComplexArithmeticOpResult bracketedComplexOperation(sr.grpc.gen.BracketedArithmeticOpArguments request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getBracketedComplexOperationMethod(), getCallOptions(), request);
     }
   }
 
@@ -185,9 +238,18 @@ public final class AdvancedCalculatorGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getComplexOperationMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sr.grpc.gen.ComplexArithmeticOpResult> bracketedComplexOperation(
+        sr.grpc.gen.BracketedArithmeticOpArguments request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getBracketedComplexOperationMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_COMPLEX_OPERATION = 0;
+  private static final int METHODID_BRACKETED_COMPLEX_OPERATION = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -208,6 +270,10 @@ public final class AdvancedCalculatorGrpc {
       switch (methodId) {
         case METHODID_COMPLEX_OPERATION:
           serviceImpl.complexOperation((sr.grpc.gen.ComplexArithmeticOpArguments) request,
+              (io.grpc.stub.StreamObserver<sr.grpc.gen.ComplexArithmeticOpResult>) responseObserver);
+          break;
+        case METHODID_BRACKETED_COMPLEX_OPERATION:
+          serviceImpl.bracketedComplexOperation((sr.grpc.gen.BracketedArithmeticOpArguments) request,
               (io.grpc.stub.StreamObserver<sr.grpc.gen.ComplexArithmeticOpResult>) responseObserver);
           break;
         default:
@@ -235,6 +301,13 @@ public final class AdvancedCalculatorGrpc {
               sr.grpc.gen.ComplexArithmeticOpArguments,
               sr.grpc.gen.ComplexArithmeticOpResult>(
                 service, METHODID_COMPLEX_OPERATION)))
+        .addMethod(
+          getBracketedComplexOperationMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              sr.grpc.gen.BracketedArithmeticOpArguments,
+              sr.grpc.gen.ComplexArithmeticOpResult>(
+                service, METHODID_BRACKETED_COMPLEX_OPERATION)))
         .build();
   }
 
@@ -284,6 +357,7 @@ public final class AdvancedCalculatorGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new AdvancedCalculatorFileDescriptorSupplier())
               .addMethod(getComplexOperationMethod())
+              .addMethod(getBracketedComplexOperationMethod())
               .build();
         }
       }

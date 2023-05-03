@@ -34,6 +34,11 @@ public final class CalculatorProto {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_calculator_ComplexArithmeticOpResult_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_calculator_BracketedArithmeticOpArguments_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_calculator_BracketedArithmeticOpArguments_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -49,17 +54,30 @@ public final class CalculatorProto {
       "\n\034ComplexArithmeticOpArguments\022)\n\006optype" +
       "\030\001 \001(\0162\031.calculator.OperationType\022\014\n\004arg" +
       "s\030\002 \003(\001\"(\n\031ComplexArithmeticOpResult\022\013\n\003" +
-      "res\030\001 \001(\001*3\n\rOperationType\022\007\n\003SUM\020\000\022\007\n\003A" +
-      "VG\020\001\022\007\n\003MIN\020\002\022\007\n\003MAX\020\0032\251\001\n\nCalculator\022J\n" +
-      "\003Add\022!.calculator.ArithmeticOpArguments\032" +
-      "\036.calculator.ArithmeticOpResult\"\000\022O\n\010Sub" +
-      "tract\022!.calculator.ArithmeticOpArguments" +
-      "\032\036.calculator.ArithmeticOpResult\"\0002{\n\022Ad" +
-      "vancedCalculator\022e\n\020ComplexOperation\022(.c" +
-      "alculator.ComplexArithmeticOpArguments\032%" +
-      ".calculator.ComplexArithmeticOpResult\"\000B" +
-      " \n\013sr.grpc.genB\017CalculatorProtoP\001b\006proto" +
-      "3"
+      "res\030\001 \001(\001\"\355\002\n\036BracketedArithmeticOpArgum" +
+      "ents\022/\n\006optype\030\001 \001(\0162\037.calculator.TwoArg" +
+      "OperationType\022?\n\013complexArg1\030\002 \001(\0132(.cal" +
+      "culator.ComplexArithmeticOpArgumentsH\000\022C" +
+      "\n\rbracketedArg1\030\003 \001(\0132*.calculator.Brack" +
+      "etedArithmeticOpArgumentsH\000\022?\n\013complexAr" +
+      "g2\030\004 \001(\0132(.calculator.ComplexArithmeticO" +
+      "pArgumentsH\001\022C\n\rbracketedArg2\030\005 \001(\0132*.ca" +
+      "lculator.BracketedArithmeticOpArgumentsH" +
+      "\001B\006\n\004arg1B\006\n\004arg2*3\n\rOperationType\022\007\n\003SU" +
+      "M\020\000\022\007\n\003AVG\020\001\022\007\n\003MIN\020\002\022\007\n\003MAX\020\003*/\n\023TwoArg" +
+      "OperationType\022\014\n\010MULTIPLY\020\000\022\n\n\006DIVIDE\020\0012" +
+      "\251\001\n\nCalculator\022J\n\003Add\022!.calculator.Arith" +
+      "meticOpArguments\032\036.calculator.Arithmetic" +
+      "OpResult\"\000\022O\n\010Subtract\022!.calculator.Arit" +
+      "hmeticOpArguments\032\036.calculator.Arithmeti" +
+      "cOpResult\"\0002\355\001\n\022AdvancedCalculator\022e\n\020Co" +
+      "mplexOperation\022(.calculator.ComplexArith" +
+      "meticOpArguments\032%.calculator.ComplexAri" +
+      "thmeticOpResult\"\000\022p\n\031BracketedComplexOpe" +
+      "ration\022*.calculator.BracketedArithmeticO" +
+      "pArguments\032%.calculator.ComplexArithmeti" +
+      "cOpResult\"\000B \n\013sr.grpc.genB\017CalculatorPr" +
+      "otoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -89,6 +107,12 @@ public final class CalculatorProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_calculator_ComplexArithmeticOpResult_descriptor,
         new java.lang.String[] { "Res", });
+    internal_static_calculator_BracketedArithmeticOpArguments_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_calculator_BracketedArithmeticOpArguments_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_calculator_BracketedArithmeticOpArguments_descriptor,
+        new java.lang.String[] { "Optype", "ComplexArg1", "BracketedArg1", "ComplexArg2", "BracketedArg2", "Arg1", "Arg2", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
