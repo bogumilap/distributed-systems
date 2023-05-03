@@ -13,19 +13,3 @@ gRPC: „dynamic grpc”, “reflection”, grpcurl
 **Maksymalna punktacja:** Ice: 6, gRPC: 7
 
 &ast; W przypadku użycia gRPCurl jeden język - tylko implementacja strony serwerowej.
-
-Compilation to `gen` directory:
-
-    ../../gRPC/protoc.exe -I . --java_out=gen --plugin=protoc-gen-grpc-java=../../gRPC/protoc-gen-grpc-java-1.54.0-windows-x86_64.exe --grpc-java_out=gen calculator.proto 
-
-
-Example RPC:
-
-    grpcurl.exe -d "{\"arg1\": 12, \"arg2\": 24}" -plaintext 127.0.0.5:50051 calculator.Calculator/Add
-
-gives result:
-```json
-{
-  "res": 36
-}
-```

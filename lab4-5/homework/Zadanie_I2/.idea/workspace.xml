@@ -9,24 +9,7 @@
       <change beforePath="$PROJECT_DIR$/../../gRPC/person2.ser" beforeDir="false" afterPath="$PROJECT_DIR$/../../gRPC/person2.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Zadanie_A1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Zadanie_A1/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calculator.proto" beforeDir="false" afterPath="$PROJECT_DIR$/calculator.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/description.md" beforeDir="false" afterPath="$PROJECT_DIR$/description.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/AdvancedCalculatorGrpc.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ArithmeticOpArguments.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ArithmeticOpArgumentsOrBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ArithmeticOpResult.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ArithmeticOpResultOrBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/CalculatorGrpc.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/CalculatorProto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ComplexArithmeticOpArguments.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ComplexArithmeticOpArgumentsOrBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ComplexArithmeticOpResult.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/ComplexArithmeticOpResultOrBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/sr/grpc/gen/OperationType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sr/grpc/server/AdvancedCalculatorImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sr/grpc/server/AdvancedCalculatorImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sr/grpc/server/grpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sr/grpc/server/grpcServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sr/grpc/server/grpcServer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sr/grpc/server/grpcServer$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sr/grpc/server/grpcServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sr/grpc/server/grpcServer.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +91,7 @@
       <option name="presentableId" value="Default" />
       <updated>1683059500300</updated>
       <workItem from="1683059502010" duration="2136000" />
-      <workItem from="1683127839799" duration="11820000" />
+      <workItem from="1683127839799" duration="13370000" />
     </task>
     <servers />
   </component>
