@@ -54,6 +54,9 @@ class BeanCoffeeMakerHandler:
                 except (IllegalIngredientException, IllegalIngredientQuantityException) as e:
                     print(f"ERROR: {e.reason}")
                     return
+                except ValueError as e:
+                    print(f"ERROR: {e}")
+                    return
                 print(f"Successfully set quantity of {ingredient} to {quantity} units")
             case _:
                 print("ERROR: Action not recognised")

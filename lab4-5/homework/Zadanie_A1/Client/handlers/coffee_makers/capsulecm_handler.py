@@ -58,6 +58,9 @@ class CapsuleCoffeeMakerHandler:
                 except (UnsupportedBeverageTypeException, NotEnoughIngredientsException) as e:
                     print("ERROR:", e.reason)
                     return
+                except ValueError as e:
+                    print(f"ERROR: {e}")
+                    return
                 print(f"Prepared {beverage.beverageType}.")
             case "increaseIngredientQuantity":
                 print(f"Stored ingredients: {', '.join([ingredient for ingredient in self.ingredients.keys()])}")
