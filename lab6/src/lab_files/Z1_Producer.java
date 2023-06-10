@@ -1,3 +1,5 @@
+package lab_files;
+
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -23,10 +25,19 @@ public class Z1_Producer {
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);        
 
         // producer (publish msg)
-        String message = "Hello world!";
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        String message = br.readLine();
+        for (int i=0; i<5; i++) {
+            String message = "1";
+            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+            System.out.println("Sent: " + message);
+            message = "5";
+            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+            System.out.println("Sent: " + message);
 
-        channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
-        System.out.println("Sent: " + message);
+        }
+//        channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+//        System.out.println("Sent: " + message);
 
         // close
         channel.close();
