@@ -14,20 +14,10 @@ public class TopicExchangeConsumer extends Thread {
     @Override
     public void run() {
         try {
-
-            // connection & channel
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
-            Connection connection = factory.newConnection();
-            Channel channel = connection.createChannel();
-
-            // exchange
-            String exchangeName = "space";
-            channel.exchangeDeclare(exchangeName, BuiltinExchangeType.TOPIC);
-
-            // queue & bind
-            String queueName = channel.queueDeclare().getQueue();
-            channel.queueBind(queueName, exchangeName, key);
+            ChannelCreator channelCreator = new ChannelCreator();
+            channelCreator.addTopicExchange();
+            channelCreator.addTopicExchangeQueue(key);
+            Channel channel = channelCreator.getChannel();
 
             // consumer (message handling)
             Consumer consumer = new DefaultConsumer(channel) {
@@ -38,7 +28,7 @@ public class TopicExchangeConsumer extends Thread {
                 }
             };
 
-            channel.basicConsume(queueName, true, consumer);
+            channel.basicConsume(channelCreator.getQueueName(), true, consumer);
         }
         catch (IOException | TimeoutException e) {
             e.printStackTrace();

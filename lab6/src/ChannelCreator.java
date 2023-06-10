@@ -1,13 +1,11 @@
-import com.rabbitmq.client.BuiltinExchangeType;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.*;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 public class ChannelCreator {
     private final Channel channel;
+    private String queueName = null;
     private final String exchangeName = "space";
 
     public ChannelCreator() throws IOException, TimeoutException {
@@ -19,11 +17,12 @@ public class ChannelCreator {
     }
 
     public void addTopicExchange() throws IOException {
+        // exchange
         channel.exchangeDeclare(exchangeName, BuiltinExchangeType.TOPIC);
     }
 
     public void addTopicExchangeQueue(String key) throws IOException {
-        String queueName = channel.queueDeclare().getQueue();
+        queueName = channel.queueDeclare().getQueue();
         channel.queueBind(queueName, exchangeName, key);
     }
 
@@ -34,5 +33,9 @@ public class ChannelCreator {
 
     public Channel getChannel() {
         return channel;
+    }
+
+    public String getQueueName() {
+        return queueName;
     }
 }

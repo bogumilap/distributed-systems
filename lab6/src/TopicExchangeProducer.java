@@ -5,22 +5,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
 
 public class TopicExchangeProducer {
-    private final String exchangeName = "space";
     private final Channel channel;
 
     public TopicExchangeProducer() throws IOException, TimeoutException {
-        // connection & channel
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        Connection connection = factory.newConnection();
-        this.channel = connection.createChannel();
-
-        // exchange
-        channel.exchangeDeclare(exchangeName, BuiltinExchangeType.TOPIC);
+        ChannelCreator channelCreator = new ChannelCreator();
+        channelCreator.addTopicExchange();
+        channel = channelCreator.getChannel();
     }
 
     public void send(String message, String key) throws IOException {
         // publish
-        channel.basicPublish(exchangeName, key, null, message.getBytes(StandardCharsets.UTF_8));
+        channel.basicPublish("space", key, null, message.getBytes(StandardCharsets.UTF_8));
     }
 }

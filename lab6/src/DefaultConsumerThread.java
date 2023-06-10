@@ -49,7 +49,7 @@ public class DefaultConsumerThread extends Thread {
                         try {
                             channel.basicPublish("", "space.agencies." + senderName, null, response.getBytes());
                             System.out.println("[sent: \"" + response + "\" to \"" + senderName + "\"]");
-                            channel.basicPublish("space", "admin", null, message.getBytes(StandardCharsets.UTF_8));
+                            channel.basicPublish("space", "admin", null, response.getBytes(StandardCharsets.UTF_8));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
