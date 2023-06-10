@@ -14,8 +14,10 @@ public class Transporter {
 
         // selecting two supported job types
         JobTypeUtils jobTypeUtils = new JobTypeUtils();
-        JobType jobType1 = selectJobType(1, jobTypeUtils, reader);
-        JobType jobType2 = selectJobType(2, jobTypeUtils, reader);
+        JobType jobType1 = selectJobType(1, jobTypeUtils, reader, null);
+        JobType jobType2 = selectJobType(2, jobTypeUtils, reader, jobType1);
+
+        System.out.println("Waiting for job orders...");
 
         new Thread(new DefaultConsumerThread("space.transporters." + jobType1, transporterID)).start();
         new Thread(new DefaultConsumerThread("space.transporters." + jobType2, transporterID)).start();
@@ -23,13 +25,18 @@ public class Transporter {
         new Thread(new TopicExchangeConsumer("admin.all")).start();
     }
 
-    public static JobType selectJobType(int ID, JobTypeUtils jobTypeUtils, BufferedReader reader) throws IOException {
+    public static JobType selectJobType(int ID, JobTypeUtils jobTypeUtils, BufferedReader reader, JobType existingJobType) throws IOException {
         JobType jobType = null;
         while (jobType == null) {
             System.out.print("Select supported job type #" + ID + " (" + jobTypeUtils.getOptions() + "): ");
             String input = reader.readLine();
             if (jobTypeUtils.isValidType(input)) {
-                jobType = JobType.valueOf(input.toUpperCase());
+                JobType selectedJobType = JobType.valueOf(input.toUpperCase());
+                if (selectedJobType == existingJobType) {
+                    System.out.println("Job #2 has to be different than job #1");
+                } else {
+                    jobType = selectedJobType;
+                }
             } else {
                 System.out.println("Incorrect job type (\"" + input + "\").");
             }
