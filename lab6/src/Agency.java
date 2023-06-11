@@ -3,6 +3,7 @@ import com.rabbitmq.client.Channel;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.TimeoutException;
 
@@ -23,7 +24,10 @@ public class Agency {
         new Thread(new TopicExchangeConsumer("admin.agencies")).start();
         new Thread(new TopicExchangeConsumer("admin.all")).start();
 
-        TopicExchangeProducer adminWriter = new TopicExchangeProducer();
+        ChannelCreator channelCreator = new ChannelCreator();
+        channelCreator.addTopicExchange();
+        Channel channel = channelCreator.getChannel();
+
         Map<JobType, Channel> jobTypeChannelMap = getJobChannels();
 
         int jobID = 0;
@@ -36,11 +40,11 @@ public class Agency {
             if (jobTypeUtils.isValidType(type)) {
                 JobType jobType = JobType.valueOf(type.toUpperCase());
                 jobID++;
-                Channel channel = jobTypeChannelMap.get(jobType);
+                Channel jobChannel = jobTypeChannelMap.get(jobType);
                 String message = agencyName + "#" + jobID;
                 // producer (publish msg) - just as in Z1_producer
-                channel.basicPublish("", "space.transporters." + jobType, null, message.getBytes());
-                adminWriter.send(message, "admin");
+                jobChannel.basicPublish("", "space.transporters." + jobType, null, message.getBytes());
+                channel.basicPublish("space", "admin", null, message.getBytes(StandardCharsets.UTF_8));
                 System.out.println("[sent job request #" + jobID + "]");
             } else {
                 System.out.println("Incorrect job type (\"" + type + "\").");

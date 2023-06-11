@@ -1,6 +1,9 @@
+import com.rabbitmq.client.Channel;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.TimeoutException;
 
@@ -13,7 +16,9 @@ public class Administrator {
         targets.add("transporters");
         targets.add("all");
 
-        TopicExchangeProducer producer = new TopicExchangeProducer();
+        ChannelCreator channelCreator = new ChannelCreator();
+        channelCreator.addTopicExchange();
+        Channel channel = channelCreator.getChannel();
 
         System.out.println("ADMINISTRATOR");
 
@@ -26,7 +31,7 @@ public class Administrator {
                 System.out.print("Message: ");
                 String message = "ADMIN#" + reader.readLine();
                 try {
-                    producer.send(message, "admin." + target);
+                    channel.basicPublish("space", "admin." + target, null, message.getBytes(StandardCharsets.UTF_8));
                     System.out.println("[sent \"" + message + "\" to \"admin." + target + "\"]");
                 } catch (IOException e) {
                     e.printStackTrace();

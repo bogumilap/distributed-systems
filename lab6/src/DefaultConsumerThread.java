@@ -23,11 +23,9 @@ public class DefaultConsumerThread extends Thread {
             Consumer consumer = new DefaultConsumer(channel) {
                 @Override
                 public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                    Channel channel1 = null;
                     try {
                         ChannelCreator channelCreator = new ChannelCreator();
                         channelCreator.addTopicExchange();
-                        channel1 = channelCreator.getChannel();
                     } catch (TimeoutException e) {
                         throw new RuntimeException(e);
                     }
