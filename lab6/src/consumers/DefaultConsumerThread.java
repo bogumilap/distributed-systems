@@ -1,4 +1,7 @@
+package consumers;
+
 import com.rabbitmq.client.*;
+import utils.ChannelCreator;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -6,11 +9,15 @@ import java.util.concurrent.TimeoutException;
 
 public class DefaultConsumerThread extends Thread {
     private final String queueName;
-    private final String transporterID;
+    private String transporterID = null;
 
     public DefaultConsumerThread(String queueName, String transporterID) {
         this.queueName = queueName;
         this.transporterID = transporterID;
+    }
+
+    public DefaultConsumerThread(String queueName) {
+        this.queueName = queueName;
     }
 
     @Override
@@ -22,14 +29,7 @@ public class DefaultConsumerThread extends Thread {
 
             Consumer consumer = new DefaultConsumer(channel) {
                 @Override
-                public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                    try {
-                        ChannelCreator channelCreator = new ChannelCreator();
-                        channelCreator.addTopicExchange();
-                    } catch (TimeoutException e) {
-                        throw new RuntimeException(e);
-                    }
-
+                public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) {
                     String message = new String(body, StandardCharsets.UTF_8);
                     System.out.println("\n[received: \"" + message + "\"]");
 
@@ -38,7 +38,7 @@ public class DefaultConsumerThread extends Thread {
                         String[] split = message.split("#");
                         String senderName = split[0];
                         try {
-                            Thread.sleep(2000);
+                            Thread.sleep(3000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

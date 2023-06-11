@@ -1,3 +1,8 @@
+import consumers.DefaultConsumerThread;
+import consumers.TopicConsumerThread;
+import utils.JobType;
+import utils.JobTypeUtils;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,8 +26,8 @@ public class Transporter {
 
         new Thread(new DefaultConsumerThread("space.transporters." + jobType1, transporterID)).start();
         new Thread(new DefaultConsumerThread("space.transporters." + jobType2, transporterID)).start();
-        new Thread(new TopicExchangeConsumer("admin.transporters")).start();
-        new Thread(new TopicExchangeConsumer("admin.all")).start();
+        new Thread(new TopicConsumerThread("admin.transporters")).start();
+        new Thread(new TopicConsumerThread("admin.all")).start();
     }
 
     public static JobType selectJobType(int ID, JobTypeUtils jobTypeUtils, BufferedReader reader, JobType existingJobType) throws IOException {

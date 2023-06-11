@@ -1,4 +1,6 @@
 import com.rabbitmq.client.Channel;
+import consumers.TopicConsumerThread;
+import utils.ChannelCreator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +11,7 @@ import java.util.concurrent.TimeoutException;
 
 public class Administrator {
     public static void main(String[] args) throws IOException, TimeoutException {
-        new Thread(new TopicExchangeConsumer("admin")).start();
+        new Thread(new TopicConsumerThread("admin")).start();
 
         Set<String> targets = new HashSet<>();
         targets.add("agencies");

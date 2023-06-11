@@ -1,13 +1,16 @@
+package consumers;
+
 import com.rabbitmq.client.*;
+import utils.ChannelCreator;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
 
-public class TopicExchangeConsumer extends Thread {
+public class TopicConsumerThread extends Thread {
     private final String key;
 
-    public TopicExchangeConsumer(String key) {
+    public TopicConsumerThread(String key) {
         this.key = key;
     }
 

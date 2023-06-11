@@ -1,4 +1,9 @@
 import com.rabbitmq.client.Channel;
+import consumers.DefaultConsumerThread;
+import consumers.TopicConsumerThread;
+import utils.ChannelCreator;
+import utils.JobType;
+import utils.JobTypeUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,11 +23,11 @@ public class Agency {
         String agencyName = reader.readLine();
 
         // communication with transporters
-        new Thread(new DefaultConsumerThread("space.agencies." + agencyName, null)).start();
+        new Thread(new DefaultConsumerThread("space.agencies." + agencyName)).start();
 
         // communication with admin
-        new Thread(new TopicExchangeConsumer("admin.agencies")).start();
-        new Thread(new TopicExchangeConsumer("admin.all")).start();
+        new Thread(new TopicConsumerThread("admin.agencies")).start();
+        new Thread(new TopicConsumerThread("admin.all")).start();
 
         ChannelCreator channelCreator = new ChannelCreator();
         channelCreator.addTopicExchange();
