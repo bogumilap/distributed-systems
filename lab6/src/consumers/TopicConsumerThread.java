@@ -30,7 +30,6 @@ public class TopicConsumerThread extends Thread {
                     System.out.println("\n[received: \"" + message + "\"]");
                 }
             };
-
             channel.basicConsume(channelCreator.getQueueName(), true, consumer);
         }
         catch (IOException | TimeoutException e) {

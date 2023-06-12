@@ -33,7 +33,7 @@ public class Administrator {
                 System.out.print("Message: ");
                 String message = "ADMIN#" + reader.readLine();
                 try {
-                    channel.basicPublish("space", "admin." + target, null, message.getBytes(StandardCharsets.UTF_8));
+                    channel.basicPublish("admin", "admin." + target, null, message.getBytes(StandardCharsets.UTF_8));
                     System.out.println("[sent \"" + message + "\" to \"admin." + target + "\"]");
                 } catch (IOException e) {
                     e.printStackTrace();

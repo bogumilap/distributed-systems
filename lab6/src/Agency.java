@@ -49,7 +49,7 @@ public class Agency {
                 String message = agencyName + "#" + jobID;
                 // producer (publish msg) - just as in Z1_producer
                 jobChannel.basicPublish("", "space.transporters." + jobType, null, message.getBytes());
-                channel.basicPublish("space", "admin", null, message.getBytes(StandardCharsets.UTF_8));
+                channel.basicPublish("admin", "admin", null, message.getBytes(StandardCharsets.UTF_8));
                 System.out.println("[sent job request #" + jobID + "]");
             } else {
                 System.out.println("Incorrect job type (\"" + type + "\").");

@@ -37,17 +37,11 @@ public class DefaultConsumerThread extends Thread {
                     if (transporterID != null) {
                         String[] split = message.split("#");
                         String senderName = split[0];
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
                         String response = transporterID + "#" + message;
                         try {
                             channel.basicPublish("", "space.agencies." + senderName, null, response.getBytes());
                             System.out.println("[sent: \"" + response + "\" to \"" + senderName + "\"]");
-                            channel.basicPublish("space", "admin", null, response.getBytes(StandardCharsets.UTF_8));
+                            channel.basicPublish("admin", "admin", null, response.getBytes(StandardCharsets.UTF_8));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

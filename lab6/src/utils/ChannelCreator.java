@@ -8,7 +8,7 @@ import java.util.concurrent.TimeoutException;
 public class ChannelCreator {
     private final Channel channel;
     private String queueName = null;
-    private final String exchangeName = "space";
+    private final String exchangeName = "admin";
 
     public ChannelCreator() throws IOException, TimeoutException {
         // connection & channel
