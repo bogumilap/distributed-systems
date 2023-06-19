@@ -23,26 +23,7 @@ public class DataMonitor implements Watcher, StatCallback {
         try {
             zooKeeper.getChildren(monitoredNode, this);
         } catch (KeeperException | InterruptedException e) {
-            System.out.println(monitoredNode + " node doesn't exist.");
-        }
-    }
-
-    @Override
-    public void process(WatchedEvent event) {
-        String path = event.getPath();
-        if (event.getType() == Event.EventType.None && event.getState() == Event.KeeperState.Expired) {
-            executor.close();
-        }
-        // if new children was created or deleted, print the new number of children
-        else if (event.getType() == Event.EventType.NodeChildrenChanged) {
-            long descendantsNumber = countDescendants(monitoredNode);
-            if (descendantsNumber != -1) {
-                System.out.println("The number of descendants is " + descendantsNumber);
-            }
-        }
-        // if the change related to the followed znode path, check its stat
-        else if (path != null && path.equals(monitoredNode)) {
-            zooKeeper.exists(monitoredNode, true, this, null);
+            System.out.println("No child nodes were found for " + monitoredNode);
         }
     }
 
@@ -51,19 +32,50 @@ public class DataMonitor implements Watcher, StatCallback {
             List<String> children = zooKeeper.getChildren(path, this);
             return children.size() + children.stream().mapToLong(child -> countDescendants(path + "/" + child)).sum();
         } catch (KeeperException | InterruptedException e) {
-            System.out.printf(path + " node doesn't exist.");
+            System.out.println("No child nodes were found for " + monitoredNode);
             return -1;
+        }
+    }
+
+    private void printDescendantsNumber() {
+        long descendantsNumber = countDescendants(monitoredNode);
+        if (descendantsNumber != -1) {
+            String message = "The number of descendants is " + descendantsNumber;
+            String separator = "";
+            for (int i=0; i<message.length() + 4; i++) {
+                separator = separator.concat("─");
+            }
+            System.out.println("\n┌" + separator + "┐\n|  " + message + "  |\n└" + separator + "┘\n");
+        }
+    }
+
+    @Override
+    public void process(WatchedEvent event) {
+        String path = event.getPath();
+        if (event.getType() == Event.EventType.NodeCreated) {
+            try {
+                zooKeeper.getChildren(monitoredNode, this);
+            } catch (KeeperException | InterruptedException e) {
+                System.out.println("No child nodes were found for " + monitoredNode);
+            }
+        }
+        if (event.getType() == Event.EventType.NodeChildrenChanged) {
+            printDescendantsNumber();
+        }
+        else if (event.getType() == Event.EventType.None && event.getState() == Event.KeeperState.Expired) {
+            executor.close();
+        }
+        // if the change related to the followed znode path, check its stat
+        else if (path != null && path.equals(monitoredNode)) {
+            zooKeeper.exists(monitoredNode, true, this, null);
         }
     }
 
     @Override
     public void processResult(int rc, String path, Object ctx, Stat stat) {
         switch (Code.get(rc)) {
-            // if everything is ok, inform the listener about it
             case OK -> executor.executeApp();
-            // if there is no node, session expired or no auth, inform listener about closing
             case NONODE, SESSIONEXPIRED, NOAUTH -> executor.close();
-            // check the watched znode stat
             default -> zooKeeper.exists(monitoredNode, true, this, null);
         }
     }

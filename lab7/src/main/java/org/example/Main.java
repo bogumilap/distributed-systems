@@ -2,9 +2,8 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        // read the arguments and create the proper executor
         if (args.length < 2) {
-            System.out.println("The required arguments are: <port> <path to graphical application>.");
+            System.out.println("Expected 2 arguments: <port> <path to graphical application>.");
             System.exit(2);
         }
         String hostPort = args[0];
